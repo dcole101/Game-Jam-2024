@@ -26,6 +26,8 @@ public class RockPaperScissors : MiniGameBase
     GameObject playerHand;
     GameObject opponentHand;
 
+    GameObject uiParent;
+
     int minigameSuccess;
 
     public override void SetupGame(Canvas gameArea)
@@ -84,6 +86,11 @@ public class RockPaperScissors : MiniGameBase
             else if (gameUI.name == "opponentScissors")
             {
                 opponentScissors = gameUI;
+            }
+            else if( gameUI.name == "RockPaperScissors")
+            {
+                uiParent = gameUI;
+                uiParent.GetComponent<Transform>().position = new Vector2(540, 960);
             }
         }
 
@@ -174,5 +181,6 @@ public class RockPaperScissors : MiniGameBase
     {
         playerHand.GetComponent<Image>().color = Color.white;
         opponentHand.GetComponent<Image>().color = Color.white;
+        uiParent.GetComponent<Transform>().position = new Vector2(5000, 5000);
     }
 }
