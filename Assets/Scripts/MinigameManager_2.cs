@@ -10,7 +10,7 @@ public class MinigameManager_2 : MonoBehaviour
 
     private void Start()
     {
-        MiniGame = new RockPaperScissors();
+        MiniGame = new DontDrinkPoison();
         MiniGame.SetupGame(minigameCanvas);
     }
 
