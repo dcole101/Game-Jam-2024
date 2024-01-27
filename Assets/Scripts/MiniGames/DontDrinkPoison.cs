@@ -33,14 +33,17 @@ public class DontDrinkPoison : MiniGameBase
 
     float elapsedTime;
 
+
     int minigameSuccess;
 
     public override void SetupGame(Canvas gameArea)
     {
         minigameSuccess = 0;
+
         timeLimit = 5;
         gameController = new PreciseClick();
         gameController.SetupControls(gameArea);
+
 
         bool cupsPoisoned = false;
         bool cup1Poisoned = false;
@@ -74,6 +77,7 @@ public class DontDrinkPoison : MiniGameBase
                 cup3 = gameUI;
                 Debug.Log(cup3);
             }
+
             else if (gameUI.name == "DontDrinkPoison")
             {
                 uiParent = gameUI;
@@ -84,6 +88,7 @@ public class DontDrinkPoison : MiniGameBase
         randomSign = Random.Range(0, 3);
         if (randomSign == 0)
         {
+
             cup1Poisoned = true;
             cup2Poisoned = true;
         }
@@ -102,11 +107,14 @@ public class DontDrinkPoison : MiniGameBase
         step1Complete = false;
         step2Complete = true;
         step3Complete = true;
+
     }
 
     public override int UpdateGame(float deltaTime)
     {
+
         elapsedTime += Time.deltaTime;
+
         timeLimit -= deltaTime;
 
         if ((timeLimit <= 0 || minigameSuccess == -1) && minigameSuccess != 1)

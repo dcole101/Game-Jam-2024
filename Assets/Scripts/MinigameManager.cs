@@ -14,13 +14,21 @@ public class MinigameManager : MonoBehaviour
     float timeElapsed = 5;
     float gameEndDelay = 2;
 
+    int minigameCount = 3;
+    int currentGameID = -1;
+
+    int health = 5;
+
     private void Start()
     {
-        gameRunning = true;
+        //gameRunning = true;
         gameWon = false;
+        SwitchMiniGame();
 
-        MiniGame = new HoopJump();
-        MiniGame.SetupGame(minigameCanvas);
+        //MiniGame = new HoopJump();
+        //MiniGame.SetupGame(minigameCanvas);
+
+
     }
 
     void Update()
@@ -35,6 +43,12 @@ public class MinigameManager : MonoBehaviour
                 {
                     gameWon = true;
                 }
+                else
+                {
+                    health--;
+                }
+
+                Debug.Log(health);
 
                 timeElapsed = 0;
                 gameRunning = false;
@@ -57,14 +71,47 @@ public class MinigameManager : MonoBehaviour
                 MiniGame.ResetGame();
             }
         }
+        else
+        {
+            SwitchMiniGame();
+        }
     }
 
-    void SwitchMiniGame(int gameID)
+    void SwitchMiniGame()
     {
-        switch(gameID)
+        gameRunning = true;
+        int gameID = GetRandomGameID();
+
+        if (MiniGame != null)
+        {
+            MiniGame.ResetGame();
+        }
+
+        switch (gameID)
         {
             case 0:
+                MiniGame = new WhackMole();
+                break;
+            case 1:
+                MiniGame = new RockPaperScissors();
+                break;
+            case 2:
+                MiniGame = new HoopJump();
                 break;
         }
+
+        MiniGame.SetupGame(minigameCanvas);
+
+    }
+
+    int GetRandomGameID()
+    {
+        int newGameID = Random.Range(0, minigameCount);
+        if (newGameID == currentGameID || newGameID == 1)
+        {
+            return GetRandomGameID();
+        }
+        currentGameID = newGameID;
+        return newGameID;
     }
 }
