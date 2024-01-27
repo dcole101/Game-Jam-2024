@@ -19,8 +19,11 @@ public class MinigameManager : MonoBehaviour
 
     int health = 5;
 
+    float speedModifier;
+
     private void Start()
     {
+        speedModifier = 1;
         //gameRunning = true;
         gameWon = false;
         SwitchMiniGame();
@@ -56,7 +59,8 @@ public class MinigameManager : MonoBehaviour
         }
         else if (timeElapsed < gameEndDelay) {
             timeElapsed += Time.deltaTime;
-            
+
+
             if (gameWon)
             {
                 //victory effect
@@ -73,6 +77,7 @@ public class MinigameManager : MonoBehaviour
         }
         else
         {
+            speedModifier += 0.1f;
             SwitchMiniGame();
         }
     }
@@ -100,7 +105,7 @@ public class MinigameManager : MonoBehaviour
                 break;
         }
 
-        MiniGame.SetupGame(minigameCanvas);
+        MiniGame.SetupGame(minigameCanvas, speedModifier);
 
     }
 

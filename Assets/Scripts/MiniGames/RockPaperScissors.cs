@@ -30,7 +30,7 @@ public class RockPaperScissors : MiniGameBase
 
     int minigameSuccess;
 
-    public override void SetupGame(Canvas gameArea)
+    public override void SetupGame(Canvas gameArea, float speedModifier)
     {
         minigameSuccess = 0;
 

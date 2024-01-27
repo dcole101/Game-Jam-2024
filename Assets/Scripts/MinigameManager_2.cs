@@ -11,7 +11,7 @@ public class MinigameManager_2 : MonoBehaviour
     private void Start()
     {
         MiniGame = new DontDrinkPoison();
-        MiniGame.SetupGame(minigameCanvas);
+        MiniGame.SetupGame(minigameCanvas, 1.0f);
     }
 
     void Update()

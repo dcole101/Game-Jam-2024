@@ -23,8 +23,11 @@ public class WhackMole : MiniGameBase
     float moleSpeed;
 
     int hitGoal = 1;
-    public override void SetupGame(Canvas gameArea)
+
+    float m_speedModifier;
+    public override void SetupGame(Canvas gameArea, float speedModifier)
     {
+        m_speedModifier = speedModifier;
         timeLimit = 4;
         timeElapsed= 0;
         gameController = new PreciseClick();
@@ -70,6 +73,7 @@ public class WhackMole : MiniGameBase
 
     public override int UpdateGame(float deltaTime)
     {
+        deltaTime *= m_speedModifier;
         timeElapsed += deltaTime;
         timeLimit -= deltaTime;
 
