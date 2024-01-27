@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Raycast
+  - WhackMole
   layers:
   - Default
   - TransparentFX
