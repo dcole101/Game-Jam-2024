@@ -10,7 +10,7 @@ public abstract class MiniGameBase
     public Canvas minigameCanvas;
     public float timeLimit;
 
-    public abstract void SetupGame(Canvas gameArea);
+    public abstract void SetupGame(Canvas gameArea, float speedModifier);
     public abstract int UpdateGame(float deltaTime);
     public abstract void ResetGame();
 }

@@ -30,8 +30,12 @@ public class HoopJump : MiniGameBase
 
     float elapsedTime;
 
-    public override void SetupGame(Canvas gameArea)
+    float m_speedModifier;
+
+    public override void SetupGame(Canvas gameArea, float speedModifier)
     {
+        m_speedModifier = speedModifier;
+
         timeLimit = 4;
 
         gameController = new PreciseClick();
@@ -102,6 +106,8 @@ public class HoopJump : MiniGameBase
 
     public override int UpdateGame(float deltaTime)
     {
+        deltaTime *= m_speedModifier;
+
         timeLimit -= deltaTime;
         elapsedTime += deltaTime;
 

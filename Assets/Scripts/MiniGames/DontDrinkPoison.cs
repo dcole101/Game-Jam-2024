@@ -36,7 +36,7 @@ public class DontDrinkPoison : MiniGameBase
 
     int minigameSuccess;
 
-    public override void SetupGame(Canvas gameArea)
+    public override void SetupGame(Canvas gameArea, float speedModifier)
     {
         minigameSuccess = 0;
 
@@ -138,12 +138,12 @@ public class DontDrinkPoison : MiniGameBase
             
             if(cup2Poisoned == true) 
             {
-                poisonIcon2.GetComponent<Image>().color = new Color(poisonIcon2.GetComponent<Image>().color.r, poisonIcon2.GetComponent<Image>().color.g, poisonIcon2.GetComponent<Image>().color.b, poisonIcon2.GetComponent<Image>().color.a + (-5 * deltaTime))
+                poisonIcon2.GetComponent<Image>().color = new Color(poisonIcon2.GetComponent<Image>().color.r, poisonIcon2.GetComponent<Image>().color.g, poisonIcon2.GetComponent<Image>().color.b, poisonIcon2.GetComponent<Image>().color.a + (-5 * deltaTime));
             }
 
             if (cup3Poisoned == true) 
             {
-                poisonIcon3.GetComponent<Image>().color = new Color(poisonIcon2.GetComponent<Image>().color.r, poisonIcon2.GetComponent<Image>().color.g, poisonIcon2.GetComponent<Image>().color.b, poisonIcon2.GetComponent<Image>().color.a + (-5 * deltaTime))
+                //poisonIcon3.GetComponent<Image>().color = new Color(poisonIcon2.GetComponent<Image>().color.r, poisonIcon2.GetComponent<Image>().color.g, poisonIcon2.GetComponent<Image>().color.b, poisonIcon2.GetComponent<Image>().color.a + (-5 * deltaTime));
             }
         }
 
