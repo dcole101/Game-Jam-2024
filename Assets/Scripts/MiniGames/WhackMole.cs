@@ -12,6 +12,8 @@ public class WhackMole : MiniGameBase
 
     GameObject[] moles = { null, null, null};
 
+    GameObject uiParent;
+
     bool[] moleUp = { false, false, false};
     bool[] moleActive = { false, false, false };
     bool[] moleHit = { false, false, false };
@@ -49,6 +51,11 @@ public class WhackMole : MiniGameBase
             else if (gameUI.name == "Mole3")
             {
                 moles[2] = gameUI;
+            }
+            else if (gameUI.name == "WhackMole")
+            {
+                uiParent = gameUI;
+                uiParent.GetComponent<Transform>().position = new Vector2(540,960);
             }
         }
 
@@ -129,7 +136,16 @@ public class WhackMole : MiniGameBase
 
     public override void ResetGame()
     {
-        
+        for (int i = 0; i < 3; i++)
+        {
+            moles[i].GetComponent<Transform>().position = new Vector2(moles[i].GetComponent<Transform>().position.x, -695);
+
+            moleUp[i] = false;
+            moleActive[i] = false;
+            moleHit[i] = false;
+        }
+
+        uiParent.GetComponent<Transform>().position = new Vector2(5000, 5000);
     }
 
     private void UpdateMoles(float deltaTime)
