@@ -9,6 +9,8 @@ public class RockPaperScissors : MiniGameBase
 {
     List<RaycastResult> raycastResult = null;
 
+    float speedMod;
+
     //Rock, Paper, Scissors Icons that users clicks to select move.
     GameObject rockIcon;
     GameObject paperIcon;
@@ -32,6 +34,8 @@ public class RockPaperScissors : MiniGameBase
 
     public override void SetupGame(Canvas gameArea, float speedModifier)
     {
+        speedModifier = speedModifier;
+
         minigameSuccess = 0;
 
         timeLimit = 5;
@@ -111,6 +115,7 @@ public class RockPaperScissors : MiniGameBase
 
     public override int UpdateGame(float deltaTime)
     {
+        deltaTime *= speedMod;
         timeLimit -= deltaTime;
 
         if((timeLimit <= 0 || minigameSuccess == -1) && minigameSuccess != 1) 

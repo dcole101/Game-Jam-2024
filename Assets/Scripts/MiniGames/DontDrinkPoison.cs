@@ -11,6 +11,8 @@ public class DontDrinkPoison : MiniGameBase
 
     //Rock, Paper, Scissors Icons that users clicks to select move.
 
+    float speedMod;
+
     GameObject cup1;
     GameObject cup2;
     GameObject cup3;
@@ -45,6 +47,8 @@ public class DontDrinkPoison : MiniGameBase
     {
         minigameSuccess = 0;
 
+        speedMod = speedModifier;
+
         timeLimit = 5;
         gameController = new PreciseClick();
         gameController.SetupControls(gameArea);
@@ -53,6 +57,9 @@ public class DontDrinkPoison : MiniGameBase
         cup2Poisoned = false;
         cup3Poisoned = false;
 
+        cup1Safe = false;
+        cup2Safe = false;
+        cup3Safe = false;
 
         int randomSign;
 
@@ -135,7 +142,7 @@ public class DontDrinkPoison : MiniGameBase
 
     public override int UpdateGame(float deltaTime)
     {
-
+        deltaTime *= speedMod;
         elapsedTime += Time.deltaTime;
 
         timeLimit -= deltaTime;
@@ -308,7 +315,9 @@ public class DontDrinkPoison : MiniGameBase
 
     public override void ResetGame()
     {
-
+        cup1.GetComponent<Transform>().position = new Vector3(190, 260, 0);
+        cup1.GetComponent<Transform>().position = new Vector3(540, 260, 0);
+        cup3.GetComponent<Transform>().position = new Vector3(890, 260, 0);
         uiParent.GetComponent<Transform>().position = new Vector2(5000, 5000);
     }
 }
