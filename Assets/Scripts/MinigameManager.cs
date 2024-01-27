@@ -19,7 +19,7 @@ public class MinigameManager : MonoBehaviour
         gameRunning = true;
         gameWon = false;
 
-        MiniGame = new WhackMole();
+        MiniGame = new HoopJump();
         MiniGame.SetupGame(minigameCanvas);
     }
 

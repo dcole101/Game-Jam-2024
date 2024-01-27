@@ -74,7 +74,7 @@ public class WhackMole : MiniGameBase
 
         if (timeLimit < 0)
         {
-            Debug.Log("TIME OVER");
+            //Debug.Log("TIME OVER");
             return -1;
         }
 
@@ -120,7 +120,7 @@ public class WhackMole : MiniGameBase
 
         if (hitCount >= hitGoal)
         {
-            Debug.Log("GOAL");
+            //Debug.Log("GOAL");
             return 1;
         }
 
