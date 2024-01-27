@@ -7,6 +7,20 @@ TagManager:
   - Raycast
   - RockPaperScissors
   - WhackMole
+  - HoopJump
+  - DontDrinkPoison
+  - HorseRace
+  - RunAwayFromDragon
+  - TightRopeWalk
+  - CutTheSteak
+  - ShieldBlockArrows
+  - CannonBallTarget
+  - CatchTheTips
+  - SlayTheDragon
+  - PlayLute
+  - TomatoSlice
+  - DragonTugOfWar
+  - BalanceSpinningPlates
   layers:
   - Default
   - TransparentFX
