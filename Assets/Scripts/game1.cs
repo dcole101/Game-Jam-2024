@@ -2,26 +2,32 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
 public class game1 : MiniGameBase
 {
-    //public Image test;
-    public override void SetupGame()
+    List<RaycastResult> results = null;
+    public override void SetupGame(Canvas gameArea)
     {
-        //test = GameObject.FindGameObjectWithTag("Raycast").GetComponent<Image>();
-        //test.RegisterCallback<ClickEvent>(clickTest);
         gameController = new PreciseClick();
+        gameController.SetupControls(gameArea);
     }
-    public override void UpdateGame()
+    public override void UpdateGame(float deltaTime)
     {
 
-        gameController.UpdateControls();
-        //Debug.Log("Game1");
+        results =  gameController.UpdateControls(deltaTime);
+        if (results != null)
+        {
+            foreach (RaycastResult result in results)
+            {
+                Debug.Log("Hit " + result.gameObject.name);
+            }
+        }
     }
 
-    /*private void clickTest(ClickEvent evt)
+    public override void ResetGame()
     {
-        Debug.Log("AAAAAAAAAAAAAA");
-    }*/
+        
+    }
 }

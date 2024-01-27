@@ -1,20 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MinigameManager : MonoBehaviour
 {
-    public game1 MiniGame;
+    public Canvas minigameCanvas;
+    private game1 MiniGame;
 
     private void Start()
     {
         MiniGame = new game1();
-        MiniGame.SetupGame();
+        MiniGame.SetupGame(minigameCanvas);
     }
 
     void Update()
     {
-        MiniGame.UpdateGame();
+        MiniGame.UpdateGame(Time.deltaTime);
     }
 
     void SwitchMiniGame(int gameID)
