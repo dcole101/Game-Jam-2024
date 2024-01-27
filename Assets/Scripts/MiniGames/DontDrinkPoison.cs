@@ -17,12 +17,22 @@ public class DontDrinkPoison : MiniGameBase
     GameObject poisonIcon1;
     GameObject poisonIcon2;
 
-    bool hasShuffled;
+    bool cup1Poisoned;
+    bool cup2Poisoned;
+    bool cup3Poisoned;
 
-    Transform[] waypoints = new Transform[7];
-    float xSpeed = 3000f;
+    bool cupsPoisoned;
+    bool hasShuffled;
+    bool step1Complete;
+    bool step2Complete;
+    bool step3Complete;
+
+    float xSpeed = 3500;
 
     GameObject uiParent;
+
+    float elapsedTime;
+
 
     int minigameSuccess;
 
@@ -34,7 +44,12 @@ public class DontDrinkPoison : MiniGameBase
         gameController = new PreciseClick();
         gameController.SetupControls(gameArea);
 
-        hasShuffled = false;
+
+        bool cupsPoisoned = false;
+        bool cup1Poisoned = false;
+        bool cup2Poisoned = false;
+        bool cup3Poisoned = false;
+        
 
         int randomSign;
 
@@ -62,34 +77,7 @@ public class DontDrinkPoison : MiniGameBase
                 cup3 = gameUI;
                 Debug.Log(cup3);
             }
-            else if (gameUI.name == "Waypoint 1")
-            {
-                waypoints[0] = gameUI.transform;
-            }
-            else if (gameUI.name == "Waypoint 2")
-            {
-                waypoints[1] = gameUI.transform;
-            }
-            else if (gameUI.name == "Waypoint 3")
-            {
-                waypoints[2] = gameUI.transform;
-            }
-            else if (gameUI.name == "Waypoint 4")
-            {
-                waypoints[3] = gameUI.transform;
-            }
-            else if (gameUI.name == "Waypoint 5")
-            {
-                waypoints[4] = gameUI.transform;
-            }
-            else if (gameUI.name == "Waypoint 6")
-            {
-                waypoints[5] = gameUI.transform;
-            }
-            else if (gameUI.name == "Waypoint 7")
-            {
-                waypoints[6] = gameUI.transform;
-            }
+
             else if (gameUI.name == "DontDrinkPoison")
             {
                 uiParent = gameUI;
@@ -100,20 +88,33 @@ public class DontDrinkPoison : MiniGameBase
         randomSign = Random.Range(0, 3);
         if (randomSign == 0)
         {
-            
+
+            cup1Poisoned = true;
+            cup2Poisoned = true;
         }
         else if (randomSign == 1)
         {
-
+            cup1Poisoned = true;
+            cup3Poisoned = true;
         }
         else if (randomSign == 2)
         {
-
+            cup2Poisoned = true;
+            cup3Poisoned = true;
         }
+
+        hasShuffled = false;
+        step1Complete = false;
+        step2Complete = true;
+        step3Complete = true;
+
     }
 
     public override int UpdateGame(float deltaTime)
     {
+
+        elapsedTime += Time.deltaTime;
+
         timeLimit -= deltaTime;
 
         if ((timeLimit <= 0 || minigameSuccess == -1) && minigameSuccess != 1)
@@ -128,17 +129,86 @@ public class DontDrinkPoison : MiniGameBase
             return 1;
         }
 
-        if (hasShuffled == false)
+        if(cupsPoisoned == false) 
+        { 
+            if(cup1Poisoned == true)
+            {
+                poisonIcon1.GetComponent<Image>().color = new Color(poisonIcon1.GetComponent<Image>().color.r, poisonIcon1.GetComponent<Image>().color.g, poisonIcon1.GetComponent<Image>().color.b, poisonIcon1.GetComponent<Image>().color.a + (-5 * deltaTime));
+            }
+            
+            if(cup2Poisoned == true) 
+            {
+                poisonIcon2.GetComponent<Image>().color = new Color(poisonIcon2.GetComponent<Image>().color.r, poisonIcon2.GetComponent<Image>().color.g, poisonIcon2.GetComponent<Image>().color.b, poisonIcon2.GetComponent<Image>().color.a + (-5 * deltaTime))
+            }
+
+            if (cup3Poisoned == true) 
+            {
+                poisonIcon3.GetComponent<Image>().color = new Color(poisonIcon2.GetComponent<Image>().color.r, poisonIcon2.GetComponent<Image>().color.g, poisonIcon2.GetComponent<Image>().color.b, poisonIcon2.GetComponent<Image>().color.a + (-5 * deltaTime))
+            }
+        }
+
+
+        if (hasShuffled == false && cupsPoisoned)
         {
             //Step 1
-            if(cup3.GetComponent<Transform>().position.y < 400) 
+            if (step1Complete == false)
             {
-                cup3.GetComponent<Transform>().position = new Vector2(cup3.transform.position.x + (xSpeed * deltaTime), cup3.transform.position.y);
+                if (cup3.GetComponent<RectTransform>().position.x > 540)
+                {
+                    cup3.GetComponent<RectTransform>().position = new Vector2(cup3.transform.position.x + (-xSpeed * deltaTime), cup3.transform.position.y);
+                    cup2.GetComponent<RectTransform>().position = new Vector2(cup2.transform.position.x + (xSpeed * deltaTime), cup1.transform.position.y);
+                }
+                else 
+                {
+                    cup3.GetComponent<RectTransform>().position = new Vector2(540, cup1.transform.position.y);
+                    cup2.GetComponent<RectTransform>().position = new Vector2(940, cup1.transform.position.y);
+
+                    step1Complete = true;
+                    step2Complete = false;
+                    elapsedTime = 0;
+                }
+            }
+
+            if (step2Complete == false && elapsedTime > 0.25f)
+            {
+                //Step 2
+                if (cup3.GetComponent<RectTransform>().position.x > 140)
+                {
+                    cup3.GetComponent<RectTransform>().position = new Vector2(cup3.transform.position.x + (-xSpeed * deltaTime), cup3.transform.position.y);
+                    cup1.GetComponent<RectTransform>().position = new Vector2(cup1.transform.position.x + (xSpeed * deltaTime), cup1.transform.position.y);
+                }
+                else
+                {
+                    cup3.GetComponent<RectTransform>().position = new Vector2(140, cup1.transform.position.y);
+                    cup1.GetComponent<RectTransform>().position = new Vector2(540, cup1.transform.position.y);
+
+                    step2Complete = true;
+                    step3Complete = false;
+                    elapsedTime = 0;
+                }
             }
 
 
-            //hasShuffled = true;
+            if (step3Complete == false && elapsedTime > 0.25f)
+            {
+                //Step 3
+                if (cup2.GetComponent<RectTransform>().position.x > 540)
+                {
+                    cup2.GetComponent<RectTransform>().position = new Vector2(cup2.transform.position.x + (-xSpeed * deltaTime), cup2.transform.position.y);
+                    cup1.GetComponent<RectTransform>().position = new Vector2(cup1.transform.position.x + (xSpeed * deltaTime), cup1.transform.position.y);
+                }
+                else
+                {
+                    cup2.GetComponent<RectTransform>().position = new Vector2(540, cup2.transform.position.y);
+                    cup1.GetComponent<RectTransform>().position = new Vector2(940, cup1.transform.position.y);
+
+                    step3Complete = true;
+                    elapsedTime = 0;
+                    hasShuffled = true;
+                }
+            }
         }
+
 
         raycastResult = gameController.UpdateControls(deltaTime);
         if (raycastResult != null)
