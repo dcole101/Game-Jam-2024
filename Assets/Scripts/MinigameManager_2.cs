@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MinigameManager : MonoBehaviour
+public class MinigameManager_2 : MonoBehaviour
 {
     public Canvas minigameCanvas;
     public MiniGameBase MiniGame;
 
     private void Start()
     {
-        MiniGame = new WhackMole();
+        MiniGame = new RockPaperScissors();
         MiniGame.SetupGame(minigameCanvas);
     }
 

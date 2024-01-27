@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Raycast
+  - RockPaperScissors
   layers:
   - Default
   - TransparentFX
