@@ -28,12 +28,12 @@ public class WhackMole : MiniGameBase
     public override void SetupGame(Canvas gameArea, float speedModifier)
     {
         m_speedModifier = speedModifier;
-        timeLimit = 4;
+        timeLimit = 4f;
         timeElapsed= 0;
         gameController = new PreciseClick();
         gameController.SetupControls(gameArea);
 
-        moleSpeed = 500;
+        moleSpeed = 630;
 
         List<GameObject> miniGameUI = GameObject.FindGameObjectsWithTag("WhackMole").ToList();
 
@@ -58,7 +58,7 @@ public class WhackMole : MiniGameBase
             }
         }
 
-        origHeight = 265;
+        origHeight = 80;
         moleHeight = moles[0].GetComponent<RectTransform>().rect.height * moles[0].GetComponent<Transform>().localScale.y;
 
         for (int i = 0; i < 3; i++)
@@ -129,9 +129,9 @@ public class WhackMole : MiniGameBase
             return 1;
         }
 
-        if (timeElapsed >= 1)
+        if (timeElapsed >= 1f)
         {
-            timeElapsed -= 1;
+            timeElapsed -= 1f;
             moleActive[getRandomMole()] = true;
         } 
 
