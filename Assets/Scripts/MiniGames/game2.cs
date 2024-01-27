@@ -8,9 +8,10 @@ public class game2 : MiniGameBase
     {
 
     }
-    public override void UpdateGame(float deltaTime)
+    public override int UpdateGame(float deltaTime)
     {
         //Debug.Log("Game2");
+        return 0;
     }
 
     public override void ResetGame()

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Raycast
   - RockPaperScissors
+  - WhackMole
   layers:
   - Default
   - TransparentFX

@@ -13,7 +13,7 @@ public class game1 : MiniGameBase
         gameController = new PreciseClick();
         gameController.SetupControls(gameArea);
     }
-    public override void UpdateGame(float deltaTime)
+    public override int UpdateGame(float deltaTime)
     {
 
         results =  gameController.UpdateControls(deltaTime);
@@ -24,6 +24,7 @@ public class game1 : MiniGameBase
                 Debug.Log("Hit " + result.gameObject.name);
             }
         }
+        return 0;
     }
 
     public override void ResetGame()
