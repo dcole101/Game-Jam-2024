@@ -6,10 +6,10 @@ using UnityEngine.UIElements;
 
 public class game1 : MiniGameBase
 {
-    public Image test;
+    //public Image test;
     public override void SetupGame()
     {
-        //test = GameObject.Find("TestRaycast").GetComponent<Image>();
+        //test = GameObject.FindGameObjectWithTag("Raycast").GetComponent<Image>();
         //test.RegisterCallback<ClickEvent>(clickTest);
         gameController = new PreciseClick();
     }
@@ -20,8 +20,8 @@ public class game1 : MiniGameBase
         //Debug.Log("Game1");
     }
 
-    private void clickTest(ClickEvent evt)
+    /*private void clickTest(ClickEvent evt)
     {
         Debug.Log("AAAAAAAAAAAAAA");
-    }
+    }*/
 }
