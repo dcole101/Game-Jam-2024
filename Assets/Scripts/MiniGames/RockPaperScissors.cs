@@ -102,20 +102,20 @@ public class RockPaperScissors : MiniGameBase
         }
     }
 
-    public override void UpdateGame(float deltaTime)
+    public override int UpdateGame(float deltaTime)
     {
         timeLimit -= deltaTime;
 
-        if(timeLimit <= 0 || minigameSuccess == -1) 
+        if((timeLimit <= 0 || minigameSuccess == -1) && minigameSuccess != 1) 
         {
             Debug.Log("YOU LOST!");
-            //return -1;
+            return -1;
         }
 
         if(minigameSuccess == 1) 
         {
             Debug.Log("YOU WON!");
-            //return 1;
+            return 1;
         }
 
         raycastResult = gameController.UpdateControls(deltaTime);
@@ -150,7 +150,7 @@ public class RockPaperScissors : MiniGameBase
                     }
                     else if (opponentHand.GetComponent<Image>().color == opponentRock.GetComponent<Image>().color)
                     {
-
+                        minigameSuccess = 1;
                     }
                 }
                 else if(result.gameObject == scissorsIcon) //Player Selects Scissors
@@ -167,11 +167,12 @@ public class RockPaperScissors : MiniGameBase
                 }
             }
         }
-        //return 0;
+        return 0;
     }
 
     public override void ResetGame()
     {
-
+        playerHand.GetComponent<Image>().color = Color.white;
+        opponentHand.GetComponent<Image>().color = Color.white;
     }
 }
