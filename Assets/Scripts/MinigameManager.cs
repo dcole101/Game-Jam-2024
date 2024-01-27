@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class MinigameManager : MonoBehaviour
 {
     public Canvas minigameCanvas;
-    private game1 MiniGame;
+    private MiniGameBase MiniGame;
 
     private void Start()
     {
-        MiniGame = new game1();
+        MiniGame = new WhackMole();
         MiniGame.SetupGame(minigameCanvas);
     }
 
