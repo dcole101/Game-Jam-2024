@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 32cb09900266f094da262e9e29c197e1
+guid: 128124ef69833c44cabfcd52a24f5c8c
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,7 +8,8 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontNames: []
+  fontNames:
+  - Rowdies
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
