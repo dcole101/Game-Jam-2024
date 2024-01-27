@@ -23,18 +23,17 @@ public class WhackMole : MiniGameBase
     float moleSpeed;
 
     int hitGoal = 1;
-    public override void SetupGame(Canvas gameArea)
+
+    float m_speedModifier;
+    public override void SetupGame(Canvas gameArea, float speedModifier)
     {
+        m_speedModifier = speedModifier;
         timeLimit = 4;
         timeElapsed= 0;
         gameController = new PreciseClick();
         gameController.SetupControls(gameArea);
 
         moleSpeed = 500;
-
-        moleActive[0] = false;
-        moleActive[1] = false;
-        moleActive[2] = false;
 
         List<GameObject> miniGameUI = GameObject.FindGameObjectsWithTag("WhackMole").ToList();
 
@@ -59,16 +58,22 @@ public class WhackMole : MiniGameBase
             }
         }
 
-        origHeight = moles[0].GetComponent<Transform>().position.y;
+        origHeight = 265;
         moleHeight = moles[0].GetComponent<RectTransform>().rect.height * moles[0].GetComponent<Transform>().localScale.y;
 
-        moleUp[0] = true;
-        moleUp[1] = true;
-        moleUp[2] = true;
+        for (int i = 0; i < 3; i++)
+        {
+            moles[i].GetComponent<Transform>().position = new Vector2(moles[i].GetComponent<Transform>().position.x, origHeight);
+
+            moleUp[i] = true;
+            moleActive[i] = false;
+            moleHit[i] = false;
+        }
     }
 
     public override int UpdateGame(float deltaTime)
     {
+        deltaTime *= m_speedModifier;
         timeElapsed += deltaTime;
         timeLimit -= deltaTime;
 
@@ -83,7 +88,7 @@ public class WhackMole : MiniGameBase
         {
             foreach (RaycastResult result in raycastResult)
             {
-                Debug.Log("Hit " + result.gameObject.name);
+                //Debug.Log("Hit " + result.gameObject.name);
                 if (result.gameObject.name == "Ground")
                 {
                     break;
@@ -138,7 +143,6 @@ public class WhackMole : MiniGameBase
     {
         for (int i = 0; i < 3; i++)
         {
-            moles[i].GetComponent<Transform>().position = new Vector2(moles[i].GetComponent<Transform>().position.x, -695);
 
             moleUp[i] = false;
             moleActive[i] = false;
@@ -171,6 +175,7 @@ public class WhackMole : MiniGameBase
 
                     if (moles[i].GetComponent<Transform>().position.y - origHeight <= 0)
                     {
+                        moleUp[i] = true;
                         moleActive[i] = false;
                     }
                 }
