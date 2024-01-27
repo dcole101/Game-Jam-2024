@@ -155,7 +155,8 @@ PlayerSettings:
   resetResolutionOnWindowResize: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
-  applicationIdentifier: {}
+  applicationIdentifier:
+    Standalone: com.DefaultCompany.Just-a-Jester-Jesting
   buildNumber:
     Standalone: 0
     VisionOS: 0
@@ -764,8 +765,8 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: Just a Jester Jesting
-  metroPackageVersion: 
+  metroPackageName: JustaJesterJesting
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -773,7 +774,7 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: Just a Jester Jesting
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: Just a Jester Jesting
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0
