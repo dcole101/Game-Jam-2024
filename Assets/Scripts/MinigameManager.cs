@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class MinigameManager : MonoBehaviour
 {
     public Canvas minigameCanvas;
-    private MiniGameBase MiniGame;
+    public MiniGameBase MiniGame;
 
     bool gameRunning;
     bool gameWon;
