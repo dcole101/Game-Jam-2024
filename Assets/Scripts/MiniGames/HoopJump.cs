@@ -197,8 +197,6 @@ public class HoopJump : MiniGameBase
         HoopPosition.y = (float)((HoopInitialVelo.y * elapsedTime) - (0.5 * (gravity / 4) * Mathf.Pow(2, elapsedTime))) + initalHoopPos.y;
 
         hoopBack.GetComponent<Transform>().position = HoopPosition;
-
-        HoopPosition.y -= 15;
         hoopFront.GetComponent<Transform>().position = HoopPosition;
     }
 
