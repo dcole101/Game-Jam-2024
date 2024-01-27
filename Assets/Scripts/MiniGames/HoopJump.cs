@@ -44,11 +44,8 @@ public class HoopJump : MiniGameBase
 
         hoopShot = false;
 
-        hoopAngle = Random.Range(15.0f, 35.0f);
+        hoopAngle = Random.Range(10.0f, 25.0f);
         hoopInitalSpeed = 700;
-
-        HoopInitialVelo.x = Mathf.Cos(hoopAngle * Mathf.Deg2Rad) * hoopInitalSpeed * -1;
-        HoopInitialVelo.y = Mathf.Sin(hoopAngle * Mathf.Deg2Rad) * hoopInitalSpeed;
 
         List<GameObject> miniGameUI = GameObject.FindGameObjectsWithTag("HoopJump").ToList();
 
@@ -77,7 +74,30 @@ public class HoopJump : MiniGameBase
             }
         }
 
+        int direction = Random.Range(0, 2);
+        if (direction == 0)
+        {
+            direction = -1;
+        }
+
+        if (direction == -1)
+        {
+            initalHoopPos = new Vector2(1350, 700);
+        }
+        else
+        {
+            initalHoopPos = new Vector2(-1350 + 1080, 700);
+        }
+
+        hoopFront.GetComponent<Transform>().position = initalHoopPos;
+        hoopBack.GetComponent<Transform>().position = initalHoopPos;
+
+        jester.GetComponent<Transform>().position = new Vector2(jester.GetComponent<Transform>().position.x, jesterDefaultHeight);
+
         initalHoopPos = hoopBack.GetComponent<Transform>().position;
+
+        HoopInitialVelo.x = Mathf.Cos(hoopAngle * Mathf.Deg2Rad) * hoopInitalSpeed * direction;
+        HoopInitialVelo.y = Mathf.Sin(hoopAngle * Mathf.Deg2Rad) * hoopInitalSpeed;
     }
 
     public override int UpdateGame(float deltaTime)
@@ -137,10 +157,6 @@ public class HoopJump : MiniGameBase
     public override void ResetGame()
     {
         hoopShot = false;
-        hoopFront.GetComponent<Transform>().position = initalHoopPos;
-        hoopBack.GetComponent<Transform>().position = initalHoopPos;
-
-        jester.GetComponent<Transform>().position = new Vector2(jester.GetComponent<Transform>().position.x, jesterDefaultHeight);
 
         uiParent.GetComponent<Transform>().position = new Vector2(5000, 5000);
     }
