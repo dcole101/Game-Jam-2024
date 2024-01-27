@@ -10,16 +10,21 @@ public class DontDrinkPoison : MiniGameBase
     List<RaycastResult> raycastResult = null;
 
     //Rock, Paper, Scissors Icons that users clicks to select move.
-    
+
     GameObject cup1;
     GameObject cup2;
     GameObject cup3;
     GameObject poisonIcon1;
     GameObject poisonIcon2;
+    GameObject poisonIcon3;
 
     bool cup1Poisoned;
     bool cup2Poisoned;
     bool cup3Poisoned;
+
+    bool cup1Safe;
+    bool cup2Safe;
+    bool cup3Safe;
 
     bool cupsPoisoned;
     bool hasShuffled;
@@ -44,12 +49,10 @@ public class DontDrinkPoison : MiniGameBase
         gameController = new PreciseClick();
         gameController.SetupControls(gameArea);
 
+        cup1Poisoned = false;
+        cup2Poisoned = false;
+        cup3Poisoned = false;
 
-        bool cupsPoisoned = false;
-        bool cup1Poisoned = false;
-        bool cup2Poisoned = false;
-        bool cup3Poisoned = false;
-        
 
         int randomSign;
 
@@ -64,6 +67,10 @@ public class DontDrinkPoison : MiniGameBase
             {
                 poisonIcon2 = gameUI;
             }
+            else if (gameUI.name == "Poison Icon 3")
+            {
+                poisonIcon3 = gameUI;
+            }
             if (gameUI.name == "Cup 1")
             {
                 cup1 = gameUI;
@@ -75,7 +82,6 @@ public class DontDrinkPoison : MiniGameBase
             else if (gameUI.name == "Cup 3")
             {
                 cup3 = gameUI;
-                Debug.Log(cup3);
             }
 
             else if (gameUI.name == "DontDrinkPoison")
@@ -91,17 +97,34 @@ public class DontDrinkPoison : MiniGameBase
 
             cup1Poisoned = true;
             cup2Poisoned = true;
+
+            cup3Safe = true;
+
+            poisonIcon1.GetComponent<Image>().color = new Color(poisonIcon1.GetComponent<Image>().color.r, poisonIcon1.GetComponent<Image>().color.g, poisonIcon1.GetComponent<Image>().color.b, 1);
+            poisonIcon2.GetComponent<Image>().color = new Color(poisonIcon2.GetComponent<Image>().color.r, poisonIcon2.GetComponent<Image>().color.g, poisonIcon2.GetComponent<Image>().color.b, 1);
         }
         else if (randomSign == 1)
         {
             cup1Poisoned = true;
             cup3Poisoned = true;
+
+            cup2Safe = true;
+
+            poisonIcon1.GetComponent<Image>().color = new Color(poisonIcon1.GetComponent<Image>().color.r, poisonIcon1.GetComponent<Image>().color.g, poisonIcon1.GetComponent<Image>().color.b, 1);
+            poisonIcon3.GetComponent<Image>().color = new Color(poisonIcon3.GetComponent<Image>().color.r, poisonIcon3.GetComponent<Image>().color.g, poisonIcon3.GetComponent<Image>().color.b, 1);
         }
         else if (randomSign == 2)
         {
             cup2Poisoned = true;
             cup3Poisoned = true;
+
+            cup1Safe = true;
+
+            poisonIcon2.GetComponent<Image>().color = new Color(poisonIcon2.GetComponent<Image>().color.r, poisonIcon2.GetComponent<Image>().color.g, poisonIcon2.GetComponent<Image>().color.b, 1);
+            poisonIcon3.GetComponent<Image>().color = new Color(poisonIcon3.GetComponent<Image>().color.r, poisonIcon3.GetComponent<Image>().color.g, poisonIcon3.GetComponent<Image>().color.b, 1);
         }
+
+        cupsPoisoned = false;
 
         hasShuffled = false;
         step1Complete = false;
@@ -119,36 +142,54 @@ public class DontDrinkPoison : MiniGameBase
 
         if ((timeLimit <= 0 || minigameSuccess == -1) && minigameSuccess != 1)
         {
-            Debug.Log("YOU LOST!");
+            //Debug.Log("YOU LOST!");
             return -1;
         }
 
         if (minigameSuccess == 1)
         {
-            Debug.Log("YOU WON!");
+            //Debug.Log("YOU WON!");
             return 1;
         }
 
-        if(cupsPoisoned == false) 
-        { 
-            if(cup1Poisoned == true)
+        if (cupsPoisoned == false && elapsedTime >= 0.5f)
+        {
+            if (cup1Poisoned == true && poisonIcon1.GetComponent<Image>().color.a >= 0)
             {
-                poisonIcon1.GetComponent<Image>().color = new Color(poisonIcon1.GetComponent<Image>().color.r, poisonIcon1.GetComponent<Image>().color.g, poisonIcon1.GetComponent<Image>().color.b, poisonIcon1.GetComponent<Image>().color.a + (-5 * deltaTime));
+                poisonIcon1.GetComponent<Image>().color = new Color(poisonIcon1.GetComponent<Image>().color.r, poisonIcon1.GetComponent<Image>().color.g, poisonIcon1.GetComponent<Image>().color.b, (poisonIcon1.GetComponent<Image>().color.a + ((-500 * deltaTime) / 255)));
             }
-            
-            if(cup2Poisoned == true) 
+            else if (cup1Poisoned == true && poisonIcon1.GetComponent<Image>().color.a < 0)
             {
-                poisonIcon2.GetComponent<Image>().color = new Color(poisonIcon2.GetComponent<Image>().color.r, poisonIcon2.GetComponent<Image>().color.g, poisonIcon2.GetComponent<Image>().color.b, poisonIcon2.GetComponent<Image>().color.a + (-5 * deltaTime));
+                cupsPoisoned = true;
+                hasShuffled = false;
+                elapsedTime = 0;
             }
 
-            if (cup3Poisoned == true) 
+            if (cup2Poisoned == true && poisonIcon2.GetComponent<Image>().color.a >= 0)
             {
-                //poisonIcon3.GetComponent<Image>().color = new Color(poisonIcon2.GetComponent<Image>().color.r, poisonIcon2.GetComponent<Image>().color.g, poisonIcon2.GetComponent<Image>().color.b, poisonIcon2.GetComponent<Image>().color.a + (-5 * deltaTime));
+                poisonIcon2.GetComponent<Image>().color = new Color(poisonIcon2.GetComponent<Image>().color.r, poisonIcon2.GetComponent<Image>().color.g, poisonIcon2.GetComponent<Image>().color.b, (poisonIcon2.GetComponent<Image>().color.a + ((-500 * deltaTime) / 255)));
+            }
+            else if (cup2Poisoned == true && poisonIcon2.GetComponent<Image>().color.a < 0)
+            {
+                cupsPoisoned = true;
+                hasShuffled = false;
+                elapsedTime = 0;
+            }
+
+            if (cup3Poisoned == true && poisonIcon3.GetComponent<Image>().color.a >= 0)
+            {
+                poisonIcon3.GetComponent<Image>().color = new Color(poisonIcon3.GetComponent<Image>().color.r, poisonIcon3.GetComponent<Image>().color.g, poisonIcon3.GetComponent<Image>().color.b, (poisonIcon3.GetComponent<Image>().color.a + ((-500 * deltaTime) / 255)));
+            }
+            else if (cup3Poisoned == true && poisonIcon3.GetComponent<Image>().color.a < 0)
+            {
+                cupsPoisoned = true;
+                hasShuffled = false;
+                elapsedTime = 0;
             }
         }
 
 
-        if (hasShuffled == false && cupsPoisoned)
+        if (hasShuffled == false && cupsPoisoned == true)
         {
             //Step 1
             if (step1Complete == false)
@@ -158,7 +199,7 @@ public class DontDrinkPoison : MiniGameBase
                     cup3.GetComponent<RectTransform>().position = new Vector2(cup3.transform.position.x + (-xSpeed * deltaTime), cup3.transform.position.y);
                     cup2.GetComponent<RectTransform>().position = new Vector2(cup2.transform.position.x + (xSpeed * deltaTime), cup1.transform.position.y);
                 }
-                else 
+                else
                 {
                     cup3.GetComponent<RectTransform>().position = new Vector2(540, cup1.transform.position.y);
                     cup2.GetComponent<RectTransform>().position = new Vector2(940, cup1.transform.position.y);
@@ -210,8 +251,9 @@ public class DontDrinkPoison : MiniGameBase
         }
 
 
+
         raycastResult = gameController.UpdateControls(deltaTime);
-        if (raycastResult != null)
+        if (raycastResult != null && hasShuffled == true)
         {
             foreach (RaycastResult result in raycastResult)
             {
@@ -219,7 +261,46 @@ public class DontDrinkPoison : MiniGameBase
                 if (result.gameObject.name == "Ground")
                 {
                     break;
-                }   
+                }
+                else if (result.gameObject.name == "Cup 1")
+                {
+                    if (cup1Safe == true)
+                    {
+                        minigameSuccess = 1;
+                        Debug.Log("YOU DID IT!");
+                    }
+                    else if (cup1Poisoned == true)
+                    {
+                        minigameSuccess = -1;
+                        Debug.Log("WRONG");
+                    }
+                }
+                else if (result.gameObject.name == "Cup 2")
+                {
+                    if (cup2Safe == true)
+                    {
+                        minigameSuccess = 1;
+                        Debug.Log("YOU DID IT!");
+                    }
+                    else if (cup2Poisoned == true)
+                    {
+                        minigameSuccess = -1;
+                        Debug.Log("WRONG");
+                    }
+                }
+                else if (result.gameObject.name == "Cup 3")
+                {
+                    if (cup3Safe == true)
+                    {
+                        minigameSuccess = 1;
+                        Debug.Log("YOU DID IT!");
+                    }
+                    else if (cup3Poisoned == true)
+                    {
+                        minigameSuccess = -1;
+                        Debug.Log("WRONG");
+                    }
+                }
             }
         }
         return 0;
