@@ -17,6 +17,8 @@ public class MinigameManager : MonoBehaviour
     public Canvas minigameCanvas;
     public MiniGameBase MiniGame;
 
+    public GameObject sfxController;
+
     public Image jesterTimer;
     public float jesterSpeed = 5000f;
     public float lerpedX = 0;
@@ -28,13 +30,14 @@ public class MinigameManager : MonoBehaviour
     bool isGameEndDelay;
     bool isClosingCurtains;
     bool isSwitchingGame;
+    bool playedCurtainsOpenSound;
 
     float timeElapsed = 5;
     float gameEndDelay = 2;
 
     float timerTime = 0f;
 
-    int minigameCount = 4;
+    int minigameCount = 6;
 
     int health = 5;
 
@@ -50,6 +53,8 @@ public class MinigameManager : MonoBehaviour
 
     private void Start()
     {
+        playedCurtainsOpenSound = false; 
+
         availableIDs = new List<int>();
 
         speedModifier = 1;
@@ -68,10 +73,12 @@ public class MinigameManager : MonoBehaviour
 
     void Update()
     {
+            Debug.Log("Test");
+
         //Play Minigame
         if (gameRunning)
         {
-            int gameState = MiniGame.UpdateGame(Time.deltaTime);
+            int gameState = MiniGame.UpdateGame(sfxController, Time.deltaTime);
 
             //Debug.Log(MiniGame.timeLimit/timerTime);
 
@@ -112,6 +119,7 @@ public class MinigameManager : MonoBehaviour
             if (gameWon)
             {
                 //victory effect
+
             }
             else
             {
@@ -122,6 +130,10 @@ public class MinigameManager : MonoBehaviour
             {
                 isGameEndDelay = false;
                 isClosingCurtains = true;
+
+                sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[6]);
+                Debug.Log("SOUND2 ");
+
             }
         }
         //Close curtains
@@ -182,8 +194,16 @@ public class MinigameManager : MonoBehaviour
             leftCurtain.GetComponent<Transform>().position -= new Vector3(curtainSpeed * Time.deltaTime, 0, 0);
             rightCurtain.GetComponent<Transform>().position -= new Vector3(curtainSpeed * Time.deltaTime * -1, 0, 0);
 
+            if(playedCurtainsOpenSound == false)
+            {
+                //sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[6]);
+                //playedCurtainsOpenSound = true;
+                Debug.Log("SOUND");
+            }
+
             if (leftCurtain.GetComponent<Transform>().position.x <= -20 - (leftCurtain.GetComponent<RectTransform>().rect.width * leftCurtain.GetComponent<RectTransform>().localScale.x / 2) && rightCurtain.GetComponent<Transform>().position.x >= 1100 + (rightCurtain.GetComponent<RectTransform>().rect.width * rightCurtain.GetComponent<RectTransform>().localScale.x / 2))
             {
+                playedCurtainsOpenSound = false;
                 gameRunning = true;
             }
         }

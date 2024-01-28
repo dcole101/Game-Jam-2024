@@ -7,6 +7,7 @@ public class MinigameManager_2 : MonoBehaviour
 {
     public Canvas minigameCanvas;
     public MiniGameBase MiniGame;
+    public GameObject sfxController;
 
     private void Start()
     {
@@ -16,7 +17,7 @@ public class MinigameManager_2 : MonoBehaviour
 
     void Update()
     {
-        MiniGame.UpdateGame(Time.deltaTime);
+        MiniGame.UpdateGame(sfxController, Time.deltaTime);
     }
 
     void SwitchMiniGame(int gameID)

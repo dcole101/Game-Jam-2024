@@ -18,6 +18,10 @@ public class DontDrinkPoison : MiniGameBase
     GameObject poisonIcon2;
     GameObject poisonIcon3;
 
+    bool audioPlayed1;
+    bool audioPlayed2;
+    bool audioPlayed3;
+
     bool cup1Poisoned;
     bool cup2Poisoned;
     bool cup3Poisoned;
@@ -57,6 +61,11 @@ public class DontDrinkPoison : MiniGameBase
         cup1Poisoned = false;
         cup2Poisoned = false;
         cup3Poisoned = false;
+
+        audioPlayed1 = false;
+        audioPlayed2 = false;
+        audioPlayed3 = false;
+
 
 
         int randomSign;
@@ -142,7 +151,7 @@ public class DontDrinkPoison : MiniGameBase
 
     }
 
-    public override int UpdateGame(float deltaTime)
+    public override int UpdateGame(GameObject sfxController, float deltaTime)
     {
         deltaTime *= speedModif;
         elapsedTime += Time.deltaTime;
@@ -203,6 +212,12 @@ public class DontDrinkPoison : MiniGameBase
             //Step 1
             if (step1Complete == false)
             {
+                if(audioPlayed1 == false)
+                {
+                    sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[Random.Range(3, 6)]);
+                    audioPlayed1 = true;
+                }
+
                 if (cup3.GetComponent<RectTransform>().position.x > 540)
                 {
                     cup3.GetComponent<RectTransform>().position = new Vector2(cup3.transform.position.x + (-xSpeed * deltaTime), cup3.transform.position.y);
@@ -222,6 +237,12 @@ public class DontDrinkPoison : MiniGameBase
             if (step2Complete == false && elapsedTime > 0.25f)
             {
                 //Step 2
+
+                if (audioPlayed2 == false)
+                {
+                    sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[Random.Range(3, 6)]);
+                    audioPlayed2 = true;
+                }
                 if (cup3.GetComponent<RectTransform>().position.x > 140)
                 {
                     cup3.GetComponent<RectTransform>().position = new Vector2(cup3.transform.position.x + (-xSpeed * deltaTime), cup3.transform.position.y);
@@ -241,6 +262,11 @@ public class DontDrinkPoison : MiniGameBase
 
             if (step3Complete == false && elapsedTime > 0.25f)
             {
+                if (audioPlayed3 == false)
+                {
+                    sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[Random.Range(3, 6)]);
+                    audioPlayed3 = true;
+                }
                 //Step 3
                 if (cup2.GetComponent<RectTransform>().position.x > 540)
                 {
@@ -276,12 +302,16 @@ public class DontDrinkPoison : MiniGameBase
                     if (cup1Safe == true)
                     {
                         minigameSuccess = 1;
-                        Debug.Log("YOU DID IT!");
+                        //Debug.Log("YOU DID IT!");
+                        sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[9]);
+
                     }
                     else if (cup1Poisoned == true)
                     {
                         minigameSuccess = -1;
-                        Debug.Log("WRONG");
+                        sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[8]);
+
+                        //Debug.Log("WRONG");
                     }
                 }
                 else if (result.gameObject.name == "Cup 2")
@@ -289,12 +319,16 @@ public class DontDrinkPoison : MiniGameBase
                     if (cup2Safe == true)
                     {
                         minigameSuccess = 1;
-                        Debug.Log("YOU DID IT!");
+                        //Debug.Log("YOU DID IT!");
+                        sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[9]);
+
                     }
                     else if (cup2Poisoned == true)
                     {
                         minigameSuccess = -1;
-                        Debug.Log("WRONG");
+                        sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[8]);
+
+                        //Debug.Log("WRONG");
                     }
                 }
                 else if (result.gameObject.name == "Cup 3")
@@ -302,12 +336,16 @@ public class DontDrinkPoison : MiniGameBase
                     if (cup3Safe == true)
                     {
                         minigameSuccess = 1;
-                        Debug.Log("YOU DID IT!");
+                        //Debug.Log("YOU DID IT!");
+                        sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[9]);
+
                     }
                     else if (cup3Poisoned == true)
                     {
                         minigameSuccess = -1;
-                        Debug.Log("WRONG");
+                        sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[8]);
+
+                        //Debug.Log("WRONG");
                     }
                 }
             }

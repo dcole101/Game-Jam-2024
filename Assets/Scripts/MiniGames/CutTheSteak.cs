@@ -11,6 +11,7 @@ public class CutTheSteak : MiniGameBase
     float m_speedModifier;
     GameObject steakUncut;
     GameObject steakCut;
+    GameObject steakUncutImg;
 
     GameObject parentUi;
 
@@ -22,7 +23,7 @@ public class CutTheSteak : MiniGameBase
     {
         m_speedModifier = speedModifier;
 
-        timeLimit = 4;
+        timeLimit = 5;
 
         steakCuts = 10;
         steakOrigWidth = 420;
@@ -44,6 +45,10 @@ public class CutTheSteak : MiniGameBase
             {
                 steakCut = gameUI;
             }
+            else if (gameUI.name == "SteakUncutImg")
+            {
+                steakUncutImg = gameUI;
+            }
             else if (gameUI.name == "CutTheSteak")
             {
                 parentUi = gameUI;
@@ -52,9 +57,12 @@ public class CutTheSteak : MiniGameBase
         }
         steakUncut.GetComponent<RectTransform>().sizeDelta = new Vector2(steakOrigWidth, steakUncut.GetComponent<RectTransform>().rect.height);
         steakUncut.GetComponent<Transform>().position = new Vector2(32 + 540, -572 + 960);
+
+        steakCut.GetComponent<SteakAssets>().ResetSprite();
+        steakUncutImg.GetComponent<SteakAssets>().ResetSprite();
     }
 
-    public override int UpdateGame(float deltaTime)
+    public override int UpdateGame(GameObject sfxController, float deltaTime)
     {
         deltaTime *= m_speedModifier;
         timeLimit -= deltaTime;
@@ -77,7 +85,7 @@ public class CutTheSteak : MiniGameBase
             {
                 if (result.gameObject.name == "SteakUncut")
                 {
-                    CutSteak();
+                    CutSteak(sfxController);
                 }
             }
         }
@@ -91,12 +99,18 @@ public class CutTheSteak : MiniGameBase
         parentUi.GetComponent<Transform>().position = new Vector2(5000, 5000);
     }
 
-    private void CutSteak()
+    private void CutSteak(GameObject sfxController)
     {
         steakCuts--;
 
+        sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[12], 0.7f);
+
+
         steakUncut.GetComponent<RectTransform>().sizeDelta -= new Vector2 (steakOrigWidth / 10, 0);
         steakUncut.GetComponent<Transform>().position += new Vector3(steakOrigWidth / 20, 0, 0);
+
+        steakCut.GetComponent<SteakAssets>().UpdateSprite();
+        steakUncutImg.GetComponent<SteakAssets>().UpdateSprite();
 
         if (steakCuts <= 0)
         {

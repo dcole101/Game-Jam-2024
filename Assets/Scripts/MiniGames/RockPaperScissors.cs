@@ -13,7 +13,7 @@ public class RockPaperScissors : MiniGameBase
     float xSpeed;
 
     float elapsedTime;
-
+    
     bool iconClicked;
 
     //Rock, Paper, Scissors Icons that users clicks to select move.
@@ -130,7 +130,7 @@ public class RockPaperScissors : MiniGameBase
         }
     }
 
-    public override int UpdateGame(float deltaTime)
+    public override int UpdateGame(GameObject sfxController, float deltaTime)
     {
         deltaTime *= speedModif;
         timeLimit -= deltaTime;
@@ -201,6 +201,8 @@ public class RockPaperScissors : MiniGameBase
                         {
                             elapsedTime = 0;
                             minigameSuccess = -1;
+                            sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[8]);
+
                         }
                     }
                     else if(opponentHand.GetComponent<Image>().sprite == opponentScissors.GetComponent<Image>().sprite) 
@@ -209,6 +211,8 @@ public class RockPaperScissors : MiniGameBase
                         {
                             elapsedTime = 0;
                             minigameSuccess = 1;
+                            sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[9]);
+
                         }
                     }
                 }
@@ -225,6 +229,8 @@ public class RockPaperScissors : MiniGameBase
                         {
                             elapsedTime = 0;
                             minigameSuccess = -1;
+                            sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[8]);
+
                         }
                     }
                     else if (opponentHand.GetComponent<Image>().sprite == opponentRock.GetComponent<Image>().sprite)
@@ -233,6 +239,8 @@ public class RockPaperScissors : MiniGameBase
                         {
                             elapsedTime = 0;
                             minigameSuccess = 1;
+                            sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[9]);
+
                         }
                     }
                 }
@@ -249,6 +257,8 @@ public class RockPaperScissors : MiniGameBase
                         {
                             elapsedTime = 0;
                             minigameSuccess = -1;
+                            sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[8]);
+
                         }
                     }
                     else if (opponentHand.GetComponent<Image>().sprite == opponentPaper.GetComponent<Image>().sprite)
@@ -257,6 +267,8 @@ public class RockPaperScissors : MiniGameBase
                         {
                             elapsedTime = 0;
                             minigameSuccess = 1;
+                            sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[9]);
+
                         }
                     }
                 }
