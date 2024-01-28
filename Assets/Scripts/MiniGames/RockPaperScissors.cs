@@ -101,15 +101,15 @@ public class RockPaperScissors : MiniGameBase
         randomSign = Random.Range(0, 3);
         if(randomSign == 0)
         {
-            opponentHand.GetComponent<Image>().color = opponentRock.GetComponent<Image>().color;
+            opponentHand.GetComponent<Image>().sprite = opponentRock.GetComponent<Image>().sprite;
         }
         else if(randomSign == 1)
         {
-            opponentHand.GetComponent<Image>().color = opponentPaper.GetComponent<Image>().color;
+            opponentHand.GetComponent<Image>().sprite = opponentPaper.GetComponent<Image>().sprite;
         }
         else if(randomSign == 2)
         {
-            opponentHand.GetComponent<Image>().color = opponentScissors.GetComponent<Image>().color;
+            opponentHand.GetComponent<Image>().sprite = opponentScissors.GetComponent<Image>().sprite;
         }
     }
 
@@ -143,8 +143,8 @@ public class RockPaperScissors : MiniGameBase
 
                 if (result.gameObject == rockIcon) //Player Selects Rock
                 {
-                    playerHand.GetComponent<Image>().color = playerRock.GetComponent<Image>().color;
-                    if (opponentHand.GetComponent<Image>().color == opponentRock.GetComponent<Image>().color || opponentHand.GetComponent<Image>().color == opponentPaper.GetComponent<Image>().color)
+                    playerHand.GetComponent<Image>().sprite = playerRock.GetComponent<Image>().sprite;
+                    if (opponentHand.GetComponent<Image>().sprite == opponentRock.GetComponent<Image>().sprite || opponentHand.GetComponent<Image>().sprite == opponentPaper.GetComponent<Image>().sprite)
                     {
                         minigameSuccess = -1;
                     }
@@ -155,24 +155,24 @@ public class RockPaperScissors : MiniGameBase
                 }
                 else if(result.gameObject == paperIcon) //Player Selects Paper
                 {
-                    playerHand.GetComponent<Image>().color = playerPaper.GetComponent<Image>().color;
-                    if (opponentHand.GetComponent<Image>().color == opponentPaper.GetComponent<Image>().color || opponentHand.GetComponent<Image>().color == opponentScissors.GetComponent<Image>().color)
+                    playerHand.GetComponent<Image>().sprite = playerPaper.GetComponent<Image>().sprite;
+                    if (opponentHand.GetComponent<Image>().sprite == opponentPaper.GetComponent<Image>().sprite || opponentHand.GetComponent<Image>().sprite == opponentScissors.GetComponent<Image>().sprite)
                     {
                         minigameSuccess = -1;
                     }
-                    else if (opponentHand.GetComponent<Image>().color == opponentRock.GetComponent<Image>().color)
+                    else if (opponentHand.GetComponent<Image>().sprite == opponentRock.GetComponent<Image>().sprite)
                     {
                         minigameSuccess = 1;
                     }
                 }
                 else if(result.gameObject == scissorsIcon) //Player Selects Scissors
                 {
-                    playerHand.GetComponent<Image>().color = playerScissors.GetComponent<Image>().color;
-                    if (opponentHand.GetComponent<Image>().color == opponentScissors.GetComponent<Image>().color || opponentHand.GetComponent<Image>().color == opponentRock.GetComponent<Image>().color)
+                    playerHand.GetComponent<Image>().sprite = playerScissors.GetComponent<Image>().sprite;
+                    if (opponentHand.GetComponent<Image>().sprite == opponentScissors.GetComponent<Image>().sprite || opponentHand.GetComponent<Image>().sprite == opponentRock.GetComponent<Image>().sprite)
                     {
                         minigameSuccess = -1;
                     }
-                    else if (opponentHand.GetComponent<Image>().color == opponentPaper.GetComponent<Image>().color)
+                    else if (opponentHand.GetComponent<Image>().sprite == opponentPaper.GetComponent<Image>().sprite)
                     {
                         minigameSuccess = 1;
                     }
@@ -184,8 +184,8 @@ public class RockPaperScissors : MiniGameBase
 
     public override void ResetGame()
     {
-        playerHand.GetComponent<Image>().color = Color.white;
-        opponentHand.GetComponent<Image>().color = Color.white;
+        playerHand.GetComponent<Image>().sprite = null;
+        opponentHand.GetComponent<Image>().sprite = null;
         uiParent.GetComponent<Transform>().position = new Vector2(5000, 5000);
     }
 }
