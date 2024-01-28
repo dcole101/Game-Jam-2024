@@ -44,14 +44,17 @@ public class WhackMole : MiniGameBase
             if (gameUI.name == "Mole1")
             {
                 moles[0] = gameUI;
+                moles[0].GetComponent<AssetContainer>().ResetSprite();
             }
             else if (gameUI.name == "Mole2")
             {
                 moles[1] = gameUI;
+                moles[1].GetComponent<AssetContainer>().ResetSprite();
             }
             else if (gameUI.name == "Mole3")
             {
                 moles[2] = gameUI;
+                moles[2].GetComponent<AssetContainer>().ResetSprite();
             }
             else if (gameUI.name == "WhackMole")
             {
@@ -100,18 +103,24 @@ public class WhackMole : MiniGameBase
                 {
                     moleActive[0] = false;
                     moleHit[0] = true;
+
+                    moles[0].GetComponent<AssetContainer>().switchSprite();
                 }
 
                 if (result.gameObject == moles[1])
                 {
                     moleActive[1] = false;
                     moleHit[1] = true;
+
+                    moles[1].GetComponent<AssetContainer>().switchSprite();
                 }
 
                 if (result.gameObject == moles[2])
                 {
                     moleActive[2] = false;
                     moleHit[2] = true;
+
+                    moles[2].GetComponent<AssetContainer>().switchSprite();
                 }
             }
         }
