@@ -16,6 +16,7 @@ public class SteakAssets : MonoBehaviour
 
     public void ResetSprite()
     {
+        currentSprite = 0;
         GetComponent<Image>().sprite = sprites[0];
     }
 }
