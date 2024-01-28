@@ -112,6 +112,7 @@ public class MinigameManager : MonoBehaviour
             if (gameWon)
             {
                 //victory effect
+
             }
             else
             {
