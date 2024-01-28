@@ -69,7 +69,7 @@ public class MinigameManager : MonoBehaviour
         availableIDs = new List<int>();
         coroutine = KingHappy();
 
-        speedModifier = 1.2f;
+        speedModifier = 1.0f;
         for (int i = 0; i < minigameCount; i++)
         {
             availableIDs.Add(i);
@@ -77,7 +77,6 @@ public class MinigameManager : MonoBehaviour
 
         gameWon = false;
         SwitchMiniGame();
-        gameRunning = true;
         timerTime = MiniGame.timeLimit;
 
         camAnim.JesterCamAnim();
