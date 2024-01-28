@@ -118,6 +118,9 @@ public class MinigameManager_NoAnim : MonoBehaviour
             if (gameWon)
             {
                 //victory effect
+               
+                //StartCoroutine(KingHappyCoroutine());
+                
             }
             else
             {

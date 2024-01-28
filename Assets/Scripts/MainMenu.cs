@@ -15,4 +15,10 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Quit");
         Application.Quit();
     }
+    public void ReplayGame()
+    {
+        Debug.Log("Scene 1");
+        SceneManager.LoadScene(1);
+    }
+
 }
