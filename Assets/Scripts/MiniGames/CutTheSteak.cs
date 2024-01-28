@@ -62,7 +62,7 @@ public class CutTheSteak : MiniGameBase
         steakUncutImg.GetComponent<SteakAssets>().ResetSprite();
     }
 
-    public override int UpdateGame(float deltaTime)
+    public override int UpdateGame(GameObject sfxController, float deltaTime)
     {
         deltaTime *= m_speedModifier;
         timeLimit -= deltaTime;

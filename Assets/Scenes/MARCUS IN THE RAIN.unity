@@ -792,8 +792,9 @@ GameObject:
   m_Component:
   - component: {fileID: 960161086}
   - component: {fileID: 960161085}
+  - component: {fileID: 960161087}
   m_Layer: 0
-  m_Name: SFX
+  m_Name: SFXController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -810,7 +811,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -910,6 +911,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &960161087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960161084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42a9d482564d96c478857f64a3265471, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 960161085}
+  sfx:
+  - {fileID: 8300000, guid: eb9d1bb1b9a569947b429d156c1288f3, type: 3}
+  - {fileID: 8300000, guid: 50ba994b8ea86e74cb3e89badc40538a, type: 3}
+  - {fileID: 8300000, guid: fe378e10233f1d04ab8a143ad384646a, type: 3}
+  - {fileID: 8300000, guid: 77f46839b8c2bfa468f0b78e131eeda8, type: 3}
+  - {fileID: 8300000, guid: 9b0e0d60c996a2a45afe8adc98445f57, type: 3}
+  - {fileID: 8300000, guid: 331ae6e9f7a48a24cad5b8628add9cdd, type: 3}
+  - {fileID: 8300000, guid: bbe4d0c40b18baf4da5cfd495ae8f6b2, type: 3}
+  - {fileID: 8300000, guid: cfc6e5166c72d644586855cda05e07ca, type: 3}
+  - {fileID: 8300000, guid: 20d731f408ccaab46acf9140e1aaaeb0, type: 3}
+  - {fileID: 8300000, guid: 8461bf7b250753645a9b283f123ef979, type: 3}
+  - {fileID: 8300000, guid: 20c82a7ce5d62fb48937d7d48fc63e67, type: 3}
+  - {fileID: 8300000, guid: 12613db68024f3246a5956b54de95e93, type: 3}
+  - {fileID: 8300000, guid: 371db54e203489942989f45f9dde1789, type: 3}
 --- !u!1 &982101137
 GameObject:
   m_ObjectHideFlags: 0
@@ -1039,21 +1067,8 @@ MonoBehaviour:
   - {fileID: 1503629796}
   - {fileID: 567402800}
   emptyHeart: {fileID: 21300000, guid: 1af044ae35676e7479efb3e192955523, type: 3}
+  sfxController: {fileID: 960161084}
   minigameCanvas: {fileID: 619515195}
-  audioController: {fileID: 960161085}
-  audioClip:
-  - {fileID: 8300000, guid: eb9d1bb1b9a569947b429d156c1288f3, type: 3}
-  - {fileID: 8300000, guid: 50ba994b8ea86e74cb3e89badc40538a, type: 3}
-  - {fileID: 8300000, guid: fe378e10233f1d04ab8a143ad384646a, type: 3}
-  - {fileID: 8300000, guid: 77f46839b8c2bfa468f0b78e131eeda8, type: 3}
-  - {fileID: 8300000, guid: 9b0e0d60c996a2a45afe8adc98445f57, type: 3}
-  - {fileID: 8300000, guid: 331ae6e9f7a48a24cad5b8628add9cdd, type: 3}
-  - {fileID: 8300000, guid: bbe4d0c40b18baf4da5cfd495ae8f6b2, type: 3}
-  - {fileID: 8300000, guid: cfc6e5166c72d644586855cda05e07ca, type: 3}
-  - {fileID: 8300000, guid: 20d731f408ccaab46acf9140e1aaaeb0, type: 3}
-  - {fileID: 8300000, guid: 8461bf7b250753645a9b283f123ef979, type: 3}
-  - {fileID: 8300000, guid: 20c82a7ce5d62fb48937d7d48fc63e67, type: 3}
-  - {fileID: 8300000, guid: 12613db68024f3246a5956b54de95e93, type: 3}
   jesterTimer: {fileID: 1130775714}
   jesterSpeed: 5000
   lerpedX: 0

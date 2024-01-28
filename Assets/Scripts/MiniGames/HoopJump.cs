@@ -108,7 +108,7 @@ public class HoopJump : MiniGameBase
         HoopInitialVelo.y = Mathf.Sin(hoopAngle * Mathf.Deg2Rad) * hoopInitalSpeed;
     }
 
-    public override int UpdateGame(float deltaTime)
+    public override int UpdateGame(GameObject sfxController, float deltaTime)
     {
         deltaTime *= m_speedModifier;
 

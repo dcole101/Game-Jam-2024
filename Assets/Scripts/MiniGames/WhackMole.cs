@@ -76,7 +76,7 @@ public class WhackMole : MiniGameBase
         }
     }
 
-    public override int UpdateGame(float deltaTime)
+    public override int UpdateGame(GameObject sfxController, float deltaTime)
     {
         deltaTime *= m_speedModifier;
         timeElapsed += deltaTime;
@@ -104,6 +104,7 @@ public class WhackMole : MiniGameBase
                     moleActive[0] = false;
                     moleHit[0] = true;
 
+                    sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[11]);
                     moles[0].GetComponent<AssetContainer>().switchSprite();
                 }
 
@@ -112,6 +113,7 @@ public class WhackMole : MiniGameBase
                     moleActive[1] = false;
                     moleHit[1] = true;
 
+                    sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[11]);
                     moles[1].GetComponent<AssetContainer>().switchSprite();
                 }
 
@@ -120,6 +122,7 @@ public class WhackMole : MiniGameBase
                     moleActive[2] = false;
                     moleHit[2] = true;
 
+                    sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[11]);
                     moles[2].GetComponent<AssetContainer>().switchSprite();
                 }
             }
