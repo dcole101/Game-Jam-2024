@@ -211,7 +211,7 @@ public class MinigameManager_NoAnim : MonoBehaviour
                 MiniGame = new DontDrinkPoison();
                 break;
             case 4:
-                MiniGame = new CutTheSteak();
+                MiniGame = new CatchTheTips();
                 break;
             case 5:
                 MiniGame = new CatchTheTips();
