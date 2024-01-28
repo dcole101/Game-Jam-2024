@@ -3612,6 +3612,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: SFXController
       objectReference: {fileID: 0}
+    - target: {fileID: 4200729448407299685, guid: ea71c6d883c22134badd7bd81834c3b8, type: 3}
+      propertyPath: sfx.Array.size
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4200729448407299685, guid: ea71c6d883c22134badd7bd81834c3b8, type: 3}
+      propertyPath: sfx.Array.data[13]
+      value: 
+      objectReference: {fileID: 8300000, guid: 6c214c7c84447e54cbaf31a61ab38286, type: 3}
+    - target: {fileID: 4200729448407299685, guid: ea71c6d883c22134badd7bd81834c3b8, type: 3}
+      propertyPath: sfx.Array.data[14]
+      value: 
+      objectReference: {fileID: 8300000, guid: 3e8bd6f074da7614e9821c40c61543e8, type: 3}
+    - target: {fileID: 4200729448407299685, guid: ea71c6d883c22134badd7bd81834c3b8, type: 3}
+      propertyPath: sfx.Array.data[15]
+      value: 
+      objectReference: {fileID: 8300000, guid: e0ee1efca86ea03448654e0f0377480d, type: 3}
+    - target: {fileID: 4200729448407299685, guid: ea71c6d883c22134badd7bd81834c3b8, type: 3}
+      propertyPath: sfx.Array.data[16]
+      value: 
+      objectReference: {fileID: 8300000, guid: 2aeaae217ac39c840a1d7aae2497d06f, type: 3}
+    - target: {fileID: 4200729448407299685, guid: ea71c6d883c22134badd7bd81834c3b8, type: 3}
+      propertyPath: sfx.Array.data[17]
+      value: 
+      objectReference: {fileID: 8300000, guid: 7950bb26934d23041935a76fffd6b5d6, type: 3}
     - target: {fileID: 6373610166062461324, guid: ea71c6d883c22134badd7bd81834c3b8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 773.7588

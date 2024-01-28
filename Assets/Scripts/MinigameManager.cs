@@ -104,10 +104,12 @@ public class MinigameManager : MonoBehaviour
                 if (gameState == 1)
                 {
                     gameWon = true;
+                    sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[Random.Range(15, 18)], 0.85f);
                 }
                 else
                 {
                     gameWon = false;
+                    sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[Random.Range(13, 15)], 0.85f);
                     health--;
                     hearts[health].GetComponent<Image>().sprite = emptyHeart;
                 }
@@ -131,12 +133,14 @@ public class MinigameManager : MonoBehaviour
             {
                 //victory effect
                 //StartCoroutine(coroutine);
+                
 
                 happy.SetActive(true);
                 bored.SetActive(false);
             }
             else
             {
+               
                 //Lost Effect
             }
 
