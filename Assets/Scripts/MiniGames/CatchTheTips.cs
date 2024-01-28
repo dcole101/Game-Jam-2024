@@ -16,12 +16,18 @@ public class CatchTheTips : MiniGameBase
     GameObject coin2;
     GameObject coin3;
 
-    float ySpeed = 3500;
+    float ySpeed = 650f;
     GameObject uiParent;
     float elapsedTime;
 
     bool droppedAllCoins;
+    bool droppedCoin1;
+    bool droppedCoin2;
+    bool droppedCoin3;
 
+    bool coin1Collected;
+    bool coin2Collected;
+    bool coin3Collected;
 
     int minigameSuccess;
     float speedModif;
@@ -31,7 +37,7 @@ public class CatchTheTips : MiniGameBase
         speedModif = speedModifier;
         minigameSuccess = 0;
 
-        timeLimit = 5;
+        timeLimit = 4;
         gameController = new PreciseClick();
         gameController.SetupControls(gameArea);
 
@@ -60,6 +66,60 @@ public class CatchTheTips : MiniGameBase
                 uiParent.GetComponent<Transform>().position = new Vector2(540, 960);
             }
         }
+        int randomOrder = Random.Range(0, 6);
+
+        //230,540,850
+        if(randomOrder == 0)
+        {
+            coin1.GetComponent<RectTransform>().position = new Vector2(230, 955);
+            coin2.GetComponent<RectTransform>().position = new Vector2(540, 955);
+            coin3.GetComponent<RectTransform>().position = new Vector2(850, 955);
+        }
+        else if(randomOrder == 1)
+        {
+            coin1.GetComponent<RectTransform>().position = new Vector2(230, 955);
+            coin2.GetComponent<RectTransform>().position = new Vector2(850, 955);
+            coin3.GetComponent<RectTransform>().position = new Vector2(540, 955);
+        }
+        else if(randomOrder == 2)
+        {
+            coin1.GetComponent<RectTransform>().position = new Vector2(540, 955);
+            coin2.GetComponent<RectTransform>().position = new Vector2(230, 955);
+            coin3.GetComponent<RectTransform>().position = new Vector2(850, 955);
+        }
+        else if (randomOrder == 3)
+        {
+            coin1.GetComponent<RectTransform>().position = new Vector2(540, 955);
+            coin2.GetComponent<RectTransform>().position = new Vector2(850, 955);
+            coin3.GetComponent<RectTransform>().position = new Vector2(230, 955);
+        }
+        else if (randomOrder == 4)
+        {
+            coin1.GetComponent<RectTransform>().position = new Vector2(850, 955);
+            coin2.GetComponent<RectTransform>().position = new Vector2(230, 955);
+            coin3.GetComponent<RectTransform>().position = new Vector2(540, 955);
+        }
+        else if (randomOrder == 5)
+        {
+            coin1.GetComponent<RectTransform>().position = new Vector2(850, 955);
+            coin2.GetComponent<RectTransform>().position = new Vector2(540, 955);
+            coin3.GetComponent<RectTransform>().position = new Vector2(230, 955);
+        }
+
+        coin1.GetComponent<Image>().color = new Vector4(255, 255, 255, 255);
+        coin2.GetComponent<Image>().color = new Vector4(255, 255, 255, 255);
+        coin3.GetComponent<Image>().color = new Vector4(255, 255, 255, 255);
+
+
+        elapsedTime = 0;
+        droppedAllCoins = false;
+        droppedCoin1 = false;
+        droppedCoin2 = false;
+        droppedCoin3 = false;
+
+        coin1Collected = false;
+        coin2Collected = false;
+        coin3Collected = false;
     }
 
     public override int UpdateGame(float deltaTime)
@@ -80,12 +140,80 @@ public class CatchTheTips : MiniGameBase
             return 1;
         }
 
-        hat.transform.position = Input.mousePosition;
+        if (Input.mousePosition.y < 900)
+        {
+            hat.transform.position = Input.mousePosition;
+        }
 
         if(droppedAllCoins == false)
         {
+            if (droppedCoin1 == false)
+            {
+                if (coin1.transform.position.y >= 0)
+                {
+                    coin1.GetComponent<RectTransform>().position = new Vector2(coin1.transform.position.x,coin1.transform.position.y +(-ySpeed * deltaTime));
+                }
+                else if(coin1.transform.position.y <= 0 && coin1Collected == false)
+                {
+                    droppedCoin1 = true;
+                    return -1;
+                }
+            }
+            if(droppedCoin2 == false && elapsedTime > 0.5f)
+            {
+                if (coin2.transform.position.y >= 0)
+                {
+                    coin2.GetComponent<RectTransform>().position = new Vector2(coin2.transform.position.x, coin2.transform.position.y + (-ySpeed * deltaTime));
+                }
+                else if(coin2.transform.position.y <= 0 && coin2Collected == false)
+                {
+                    droppedCoin2 = true;
+                    return -1;
+                }
+            }
+            
+            if(droppedCoin3 == false && elapsedTime > 1f)
+            {
+                if (coin3.transform.position.y >= 0)
+                {
+                    coin3.GetComponent<RectTransform>().position = new Vector2(coin3.transform.position.x, coin3.transform.position.y + (-ySpeed * deltaTime));
+                }
+                else if(coin3.transform.position.y <= 0 && coin3Collected == false)
+                {
+                    droppedCoin3 = true;
+                    return -1;
+                }
+            }
 
+            if((coin1.transform.position.x >= hat.transform.position.x - 70 && coin1.transform.position.x <= hat.transform.position.x + 70) && (coin1.transform.position.y >= hat.transform.position.y - 70 && coin1.transform.position.y <= hat.transform.position.y + 70))
+            {
+                coin1Collected = true;
+                coin1.GetComponent<Image>().color = new Vector4(255, 255, 255, 0);
+            }
+
+            if ((coin2.transform.position.x >= hat.transform.position.x - 70 && coin2.transform.position.x <= hat.transform.position.x + 70) && (coin2.transform.position.y >= hat.transform.position.y - 70 && coin2.transform.position.y <= hat.transform.position.y + 70))
+            {
+                coin2Collected = true;
+                coin2.GetComponent<Image>().color = new Vector4(255, 255, 255, 0);
+            }
+
+            if ((coin3.transform.position.x >= hat.transform.position.x - 70 && coin3.transform.position.x <= hat.transform.position.x + 70) && (coin3.transform.position.y >= hat.transform.position.y - 70 && coin3.transform.position.y <= hat.transform.position.y + 70))
+            {
+                coin3Collected = true;
+                coin3.GetComponent<Image>().color = new Vector4(255, 255, 255, 0);
+            }
+
+            if (droppedCoin1 == true && droppedCoin2 == true && droppedCoin3 == true)
+            {
+                droppedAllCoins = true;
+            }
         }
+
+        if(coin1Collected == true && coin2Collected == true && coin3Collected == true)
+        {
+            return 1;
+        }
+
 
         raycastResult = gameController.UpdateControls(deltaTime);
         if (raycastResult != null)
