@@ -17,7 +17,7 @@ public class CameraAnimator : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        /*if (Input.GetKeyDown(KeyCode.C))
         {
             // Enable the Animator component and play the animation
             EnableAnimatorAndPlayAnimation(cameraClipC);
@@ -28,7 +28,19 @@ public class CameraAnimator : MonoBehaviour
             // Enable the Animator component and play the animation
             EnableAnimatorAndPlayAnimation(cameraClipV);
             Debug.Log("Camera clip 2 played");
-        }
+        }*/
+    }
+
+    public void JesterCamAnim()
+    {
+        Debug.Log("UPdate Cam");
+        EnableAnimatorAndPlayAnimation(cameraClipV);
+    }
+
+    public void KingCamAnim()
+    {
+        Debug.Log("Update Cam");
+        EnableAnimatorAndPlayAnimation(cameraClipC);
     }
 
     void EnableAnimatorAndPlayAnimation(AnimationClip animationClip)

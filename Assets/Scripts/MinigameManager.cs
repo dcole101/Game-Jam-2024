@@ -45,6 +45,9 @@ public class MinigameManager : MonoBehaviour
 
     float curtainSpeed = 600;
 
+
+    public CameraAnimator camAnim;
+
     private void Start()
     {
         availableIDs = new List<int>();
@@ -59,6 +62,8 @@ public class MinigameManager : MonoBehaviour
         SwitchMiniGame();
         gameRunning = true;
         timerTime = MiniGame.timeLimit;
+
+        camAnim.JesterCamAnim();
     }
 
     void Update()
@@ -95,6 +100,8 @@ public class MinigameManager : MonoBehaviour
                 timeElapsed = 0;
                 gameRunning = false;
                 isGameEndDelay = true;
+
+                camAnim.KingCamAnim();
             }
         }
         //Delay after game
@@ -161,6 +168,8 @@ public class MinigameManager : MonoBehaviour
         //Switch MiniGame
         else if (isSwitchingGame)
         {
+            camAnim.JesterCamAnim();
+
             isSwitchingGame = false;
             SwitchMiniGame();
             jesterTimer.transform.position = new Vector2(400,45);
