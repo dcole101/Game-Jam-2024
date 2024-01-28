@@ -189,8 +189,6 @@ public class MinigameManager : MonoBehaviour
             MiniGame.ResetGame();
         }
 
-        Debug.Log("Minigame left: " + availableIDs.Count);
-
         switch (gameID)
         {
             case 0:
