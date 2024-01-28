@@ -7,6 +7,9 @@ using TMPro;
 
 public class MinigameManager : MonoBehaviour
 {
+    public GameObject leftCurtain;
+    public GameObject rightCurtain;
+
     public Canvas minigameCanvas;
     public MiniGameBase MiniGame;
 
@@ -19,6 +22,8 @@ public class MinigameManager : MonoBehaviour
     bool gameRunning;
     bool gameWon;
     bool isGameEndDelay;
+    bool isClosingCurtains;
+    bool isSwitchingGame;
 
     float timeElapsed = 5;
     float gameEndDelay = 2;
@@ -33,6 +38,8 @@ public class MinigameManager : MonoBehaviour
 
     int currentID = -1;
     List<int> availableIDs;
+
+    float curtainSpeed = 600;
 
     private void Start()
     {
@@ -51,12 +58,12 @@ public class MinigameManager : MonoBehaviour
 
     void Update()
     {
-
+        //Play Minigame
         if (gameRunning)
         {
             int gameState = MiniGame.UpdateGame(Time.deltaTime);
 
-            Debug.Log(MiniGame.timeLimit/timerTime);
+            //Debug.Log(MiniGame.timeLimit/timerTime);
 
             // Calculate the lerp position based on the elapsed time
 
@@ -84,6 +91,7 @@ public class MinigameManager : MonoBehaviour
                 isGameEndDelay = true;
             }
         }
+        //Delay after game
         else if (timeElapsed < gameEndDelay && isGameEndDelay) {
             timeElapsed += Time.deltaTime;
 
@@ -100,10 +108,25 @@ public class MinigameManager : MonoBehaviour
             if (timeElapsed >= gameEndDelay)
             {
                 isGameEndDelay = false;
-                MiniGame.ResetGame();
                 timeElapsed = 0;
+                isClosingCurtains = true;
             }
         }
+        //Close curtains
+        else if (isClosingCurtains)
+        {
+            leftCurtain.GetComponent<Transform>().position += new Vector3(curtainSpeed * Time.deltaTime, 0, 0);
+            rightCurtain.GetComponent<Transform>().position += new Vector3(curtainSpeed * Time.deltaTime * -1, 0, 0);
+
+            //Debug.Log(leftCurtain.GetComponent<Transform>().position.x + " ; " + rightCurtain.GetComponent<Transform>().position.x);
+
+            if (leftCurtain.GetComponent<Transform>().position.x >= 550 - (leftCurtain.GetComponent<RectTransform>().rect.width * leftCurtain.GetComponent<RectTransform>().localScale.x / 2)  && rightCurtain.GetComponent<Transform>().position.x <= 530 + (rightCurtain.GetComponent<RectTransform>().rect.width * rightCurtain.GetComponent<RectTransform>().localScale.x / 2))
+            {
+                isClosingCurtains = false;
+                isSwitchingGame = true;
+            } 
+        }
+        //Check if game over
         else if (health <= 0)
         {
             SceneManager.LoadScene("GameOverScreen");
@@ -119,18 +142,31 @@ public class MinigameManager : MonoBehaviour
                 jesterTimer.gameObject.SetActive(true);
             }
         }
-        else
+        //Switch MiniGame
+        else if (isSwitchingGame)
         {
+            isSwitchingGame = false;
             SwitchMiniGame();
             jesterTimer.transform.position = new Vector2(400,45);
 
             timerTime = MiniGame.timeLimit;
         }
+        //Open Curtains
+        else
+        {
+            leftCurtain.GetComponent<Transform>().position -= new Vector3(curtainSpeed * Time.deltaTime, 0, 0);
+            rightCurtain.GetComponent<Transform>().position -= new Vector3(curtainSpeed * Time.deltaTime * -1, 0, 0);
+
+            if (leftCurtain.GetComponent<Transform>().position.x <= -20 - (leftCurtain.GetComponent<RectTransform>().rect.width * leftCurtain.GetComponent<RectTransform>().localScale.x / 2) && rightCurtain.GetComponent<Transform>().position.x >= 1100 + (rightCurtain.GetComponent<RectTransform>().rect.width * rightCurtain.GetComponent<RectTransform>().localScale.x / 2))
+            {
+                gameRunning = true;
+            }
+        }
     }
 
     void SwitchMiniGame()
     {
-        gameRunning = true;
+        Debug.Log("Switching MiniGame");
         int gameID = GetRandomGameID();
 
         if (MiniGame != null)
