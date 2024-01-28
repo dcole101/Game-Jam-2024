@@ -34,7 +34,7 @@ public class MinigameManager : MonoBehaviour
 
     float timerTime = 0f;
 
-    int minigameCount = 5;
+    int minigameCount = 4;
 
     int health = 5;
 
@@ -44,6 +44,9 @@ public class MinigameManager : MonoBehaviour
     List<int> availableIDs;
 
     float curtainSpeed = 600;
+
+
+    public CameraAnimator camAnim;
 
     private void Start()
     {
@@ -57,7 +60,10 @@ public class MinigameManager : MonoBehaviour
 
         gameWon = false;
         SwitchMiniGame();
+        gameRunning = true;
         timerTime = MiniGame.timeLimit;
+
+        camAnim.JesterCamAnim();
     }
 
     void Update()
@@ -94,6 +100,8 @@ public class MinigameManager : MonoBehaviour
                 timeElapsed = 0;
                 gameRunning = false;
                 isGameEndDelay = true;
+
+                camAnim.KingCamAnim();
             }
         }
         //Delay after game
@@ -160,6 +168,8 @@ public class MinigameManager : MonoBehaviour
         //Switch MiniGame
         else if (isSwitchingGame)
         {
+            camAnim.JesterCamAnim();
+
             isSwitchingGame = false;
             SwitchMiniGame();
             jesterTimer.transform.position = new Vector2(400,45);
@@ -188,7 +198,7 @@ public class MinigameManager : MonoBehaviour
         {
             MiniGame.ResetGame();
         }
-        gameID = 4;
+        
         switch (gameID)
         {
             case 0:
@@ -204,6 +214,9 @@ public class MinigameManager : MonoBehaviour
                 MiniGame = new DontDrinkPoison();
                 break;
             case 4:
+                MiniGame = new CutTheSteak();
+                break;
+            case 5:
                 MiniGame = new CatchTheTips();
                 break;
         }
