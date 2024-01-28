@@ -34,7 +34,7 @@ public class MinigameManager : MonoBehaviour
 
     float timerTime = 0f;
 
-    int minigameCount = 6;
+    int minigameCount = 4;
 
     int health = 5;
 
