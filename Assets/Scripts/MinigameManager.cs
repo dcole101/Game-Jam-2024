@@ -188,7 +188,7 @@ public class MinigameManager : MonoBehaviour
         {
             MiniGame.ResetGame();
         }
-
+        gameID = 1;
         switch (gameID)
         {
             case 0:
