@@ -212,7 +212,7 @@ public class HoopJump : MiniGameBase
         Vector2 hoopPos = hoopBack.GetComponent<Transform>().position;
         float hoopWidth = hoopBack.GetComponent<RectTransform>().rect.width;
 
-        if (jesterPos.y >= hoopPos.y - 0.5 && jesterPos.y <= hoopPos.y + 0.5)
+        if (jesterPos.y + (jester.GetComponent<RectTransform>().rect.height / 2)  >= hoopPos.y - 0.5 && jesterPos.y <= hoopPos.y + 0.5)
         {
             if (jesterPos.x <= hoopPos.x + (hoopWidth / 2) && jesterPos.x >= hoopPos.x - (hoopWidth / 2))
             {
