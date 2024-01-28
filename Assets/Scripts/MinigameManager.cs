@@ -30,6 +30,7 @@ public class MinigameManager : MonoBehaviour
     bool isGameEndDelay;
     bool isClosingCurtains;
     bool isSwitchingGame;
+    bool playedCurtainsOpenSound;
 
     float timeElapsed = 5;
     float gameEndDelay = 2;
@@ -52,6 +53,8 @@ public class MinigameManager : MonoBehaviour
 
     private void Start()
     {
+        playedCurtainsOpenSound = false; 
+
         availableIDs = new List<int>();
 
         speedModifier = 1;
@@ -70,6 +73,8 @@ public class MinigameManager : MonoBehaviour
 
     void Update()
     {
+            Debug.Log("Test");
+
         //Play Minigame
         if (gameRunning)
         {
@@ -124,6 +129,10 @@ public class MinigameManager : MonoBehaviour
             {
                 isGameEndDelay = false;
                 isClosingCurtains = true;
+
+                sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[6]);
+                Debug.Log("SOUND2 ");
+
             }
         }
         //Close curtains
@@ -184,8 +193,16 @@ public class MinigameManager : MonoBehaviour
             leftCurtain.GetComponent<Transform>().position -= new Vector3(curtainSpeed * Time.deltaTime, 0, 0);
             rightCurtain.GetComponent<Transform>().position -= new Vector3(curtainSpeed * Time.deltaTime * -1, 0, 0);
 
+            if(playedCurtainsOpenSound == false)
+            {
+                //sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[6]);
+                //playedCurtainsOpenSound = true;
+                Debug.Log("SOUND");
+            }
+
             if (leftCurtain.GetComponent<Transform>().position.x <= -20 - (leftCurtain.GetComponent<RectTransform>().rect.width * leftCurtain.GetComponent<RectTransform>().localScale.x / 2) && rightCurtain.GetComponent<Transform>().position.x >= 1100 + (rightCurtain.GetComponent<RectTransform>().rect.width * rightCurtain.GetComponent<RectTransform>().localScale.x / 2))
             {
+                playedCurtainsOpenSound = false;
                 gameRunning = true;
             }
         }

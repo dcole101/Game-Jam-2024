@@ -302,12 +302,16 @@ public class DontDrinkPoison : MiniGameBase
                     if (cup1Safe == true)
                     {
                         minigameSuccess = 1;
-                        Debug.Log("YOU DID IT!");
+                        //Debug.Log("YOU DID IT!");
+                        sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[9]);
+
                     }
                     else if (cup1Poisoned == true)
                     {
                         minigameSuccess = -1;
-                        Debug.Log("WRONG");
+                        sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[8]);
+
+                        //Debug.Log("WRONG");
                     }
                 }
                 else if (result.gameObject.name == "Cup 2")
@@ -315,12 +319,16 @@ public class DontDrinkPoison : MiniGameBase
                     if (cup2Safe == true)
                     {
                         minigameSuccess = 1;
-                        Debug.Log("YOU DID IT!");
+                        //Debug.Log("YOU DID IT!");
+                        sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[9]);
+
                     }
                     else if (cup2Poisoned == true)
                     {
                         minigameSuccess = -1;
-                        Debug.Log("WRONG");
+                        sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[8]);
+
+                        //Debug.Log("WRONG");
                     }
                 }
                 else if (result.gameObject.name == "Cup 3")
@@ -328,12 +336,16 @@ public class DontDrinkPoison : MiniGameBase
                     if (cup3Safe == true)
                     {
                         minigameSuccess = 1;
-                        Debug.Log("YOU DID IT!");
+                        //Debug.Log("YOU DID IT!");
+                        sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[9]);
+
                     }
                     else if (cup3Poisoned == true)
                     {
                         minigameSuccess = -1;
-                        Debug.Log("WRONG");
+                        sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[8]);
+
+                        //Debug.Log("WRONG");
                     }
                 }
             }

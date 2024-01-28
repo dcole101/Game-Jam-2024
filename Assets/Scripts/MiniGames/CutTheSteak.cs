@@ -85,7 +85,7 @@ public class CutTheSteak : MiniGameBase
             {
                 if (result.gameObject.name == "SteakUncut")
                 {
-                    CutSteak();
+                    CutSteak(sfxController);
                 }
             }
         }
@@ -99,9 +99,12 @@ public class CutTheSteak : MiniGameBase
         parentUi.GetComponent<Transform>().position = new Vector2(5000, 5000);
     }
 
-    private void CutSteak()
+    private void CutSteak(GameObject sfxController)
     {
         steakCuts--;
+
+        sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[12], 0.7f);
+
 
         steakUncut.GetComponent<RectTransform>().sizeDelta -= new Vector2 (steakOrigWidth / 10, 0);
         steakUncut.GetComponent<Transform>().position += new Vector3(steakOrigWidth / 20, 0, 0);

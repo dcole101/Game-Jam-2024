@@ -23,6 +23,9 @@ public class MinigameManager_NoAnim : MonoBehaviour
     public float jesterSpeed = 5000f;
     public float lerpedX = 0;
 
+    bool curtainOpenSoundPlayed;
+    bool levelUpSoundPlayed;
+
     bool lerpStarted = false; 
 
     bool gameRunning;
@@ -49,6 +52,10 @@ public class MinigameManager_NoAnim : MonoBehaviour
 
     private void Start()
     {
+
+        curtainOpenSoundPlayed = false;
+        levelUpSoundPlayed = false;
+
         availableIDs = new List<int>();
 
         speedModifier = 1;
@@ -119,6 +126,8 @@ public class MinigameManager_NoAnim : MonoBehaviour
 
             if (timeElapsed >= gameEndDelay)
             {
+                sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[6], 0.7f);
+
                 isGameEndDelay = false;
                 isClosingCurtains = true;
             }
@@ -145,11 +154,21 @@ public class MinigameManager_NoAnim : MonoBehaviour
         }
         else if (availableIDs.Count <= 0 && isSwitchingGame)
         {
+
+
+
+
             timeElapsed += Time.deltaTime;
             jesterTimer.gameObject.SetActive(false);
 
             if (timeElapsed > 0.5)
             {
+                if (levelUpSoundPlayed == false)
+                {
+                    sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[10]);
+                    levelUpSoundPlayed = true;
+                }
+
                 levelUpText.SetActive(true);
             }
             if (timeElapsed > 1.5)
@@ -161,6 +180,7 @@ public class MinigameManager_NoAnim : MonoBehaviour
             if (timeElapsed > 2)
             {
                 LevelUp();
+                levelUpSoundPlayed = false;
                 jesterTimer.gameObject.SetActive(true);
             }
         }
@@ -181,8 +201,16 @@ public class MinigameManager_NoAnim : MonoBehaviour
             leftCurtain.GetComponent<Transform>().position -= new Vector3(curtainSpeed * Time.deltaTime, 0, 0);
             rightCurtain.GetComponent<Transform>().position -= new Vector3(curtainSpeed * Time.deltaTime * -1, 0, 0);
 
+            if (curtainOpenSoundPlayed == false)
+            {
+                sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[6], 0.7f);
+                curtainOpenSoundPlayed = true;
+                Debug.Log("SOUND");
+            }
+
             if (leftCurtain.GetComponent<Transform>().position.x <= -20 - (leftCurtain.GetComponent<RectTransform>().rect.width * leftCurtain.GetComponent<RectTransform>().localScale.x / 2) && rightCurtain.GetComponent<Transform>().position.x >= 1100 + (rightCurtain.GetComponent<RectTransform>().rect.width * rightCurtain.GetComponent<RectTransform>().localScale.x / 2))
             {
+                curtainOpenSoundPlayed = false;
                 gameRunning = true;
             }
         }
@@ -213,7 +241,7 @@ public class MinigameManager_NoAnim : MonoBehaviour
                 MiniGame = new DontDrinkPoison();
                 break;
             case 4:
-                MiniGame = new CatchTheTips();
+                MiniGame = new CutTheSteak();
                 break;
             case 5:
                 MiniGame = new CatchTheTips();
@@ -248,6 +276,8 @@ public class MinigameManager_NoAnim : MonoBehaviour
 
         Debug.Log("LEVEL UP");
         speedModifier += 0.2f;
+
+
 
     }
 }

@@ -148,7 +148,7 @@ public class HoopJump : MiniGameBase
         {
             UpdateJesterPos(deltaTime);
 
-            CheckJesterHoop();
+            CheckJesterHoop(sfxController);
         }
 
         if (!hoopShot && elapsedTime >= 0.5)
@@ -206,7 +206,7 @@ public class HoopJump : MiniGameBase
         hoopFront.GetComponent<Transform>().position = HoopPosition;
     }
 
-    private void CheckJesterHoop()
+    private void CheckJesterHoop(GameObject sfxController)
     {
         Vector2 jesterPos = jester.GetComponent<Transform>().position;
         Vector2 hoopPos = hoopBack.GetComponent<Transform>().position;
@@ -216,6 +216,10 @@ public class HoopJump : MiniGameBase
         {
             if (jesterPos.x <= hoopPos.x + (hoopWidth / 2) && jesterPos.x >= hoopPos.x - (hoopWidth / 2))
             {
+                if(tempHoopJumpThrough == false)
+                {
+                    sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[9]);
+                }
                 tempHoopJumpThrough = true;
             }
         }
