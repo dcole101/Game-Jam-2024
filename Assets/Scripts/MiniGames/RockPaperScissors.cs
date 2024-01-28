@@ -132,7 +132,7 @@ public class RockPaperScissors : MiniGameBase
 
     public override int UpdateGame(float deltaTime)
     {
-        deltaTime *= speedModif;// 
+        deltaTime *= speedModif;
         timeLimit -= deltaTime;
         elapsedTime += Time.deltaTime;
 
@@ -190,8 +190,10 @@ public class RockPaperScissors : MiniGameBase
                 }
                 if (result.gameObject == rockIcon) //Player Selects Rock
                 {
+
                     playerHand.SetActive(true);
                     iconClicked = true;
+
                     playerHand.GetComponent<Image>().sprite = playerRock.GetComponent<Image>().sprite;
                     if (opponentHand.GetComponent<Image>().sprite == opponentRock.GetComponent<Image>().sprite || opponentHand.GetComponent<Image>().sprite == opponentPaper.GetComponent<Image>().sprite)
                     {
@@ -212,8 +214,10 @@ public class RockPaperScissors : MiniGameBase
                 }
                 else if(result.gameObject == paperIcon) //Player Selects Paper
                 {
+
                     playerHand.SetActive(true);
                     iconClicked = true;
+
                     playerHand.GetComponent<Image>().sprite = playerPaper.GetComponent<Image>().sprite;
                     if (opponentHand.GetComponent<Image>().sprite == opponentPaper.GetComponent<Image>().sprite || opponentHand.GetComponent<Image>().sprite == opponentScissors.GetComponent<Image>().sprite)
                     {
@@ -234,8 +238,10 @@ public class RockPaperScissors : MiniGameBase
                 }
                 else if(result.gameObject == scissorsIcon) //Player Selects Scissors
                 {
+
                     playerHand.SetActive(true);
                     iconClicked = true;
+
                     playerHand.GetComponent<Image>().sprite = playerScissors.GetComponent<Image>().sprite;
                     if (opponentHand.GetComponent<Image>().sprite == opponentScissors.GetComponent<Image>().sprite || opponentHand.GetComponent<Image>().sprite == opponentRock.GetComponent<Image>().sprite)
                     {
