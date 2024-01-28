@@ -113,7 +113,7 @@ public class RockPaperScissors : MiniGameBase
 
     public override int UpdateGame(float deltaTime)
     {
-        deltaTime *= speedModif;
+        deltaTime *= speedModif;// 
         timeLimit -= deltaTime;
 
         if((timeLimit <= 0 || minigameSuccess == -1) && minigameSuccess != 1) 
