@@ -40,9 +40,11 @@ public class DontDrinkPoison : MiniGameBase
 
 
     int minigameSuccess;
+    float speedModif;
 
     public override void SetupGame(Canvas gameArea, float speedModifier)
     {
+        speedModif = speedModifier;
         minigameSuccess = 0;
 
         timeLimit = 5;
@@ -91,6 +93,10 @@ public class DontDrinkPoison : MiniGameBase
             }
         }
 
+        cup1.GetComponent<Transform>().position = new Vector3(190, 260, 0);
+        cup2.GetComponent<Transform>().position = new Vector3(540, 260, 0);
+        cup3.GetComponent<Transform>().position = new Vector3(890, 260, 0);
+
         randomSign = Random.Range(0, 3);
         if (randomSign == 0)
         {
@@ -135,7 +141,7 @@ public class DontDrinkPoison : MiniGameBase
 
     public override int UpdateGame(float deltaTime)
     {
-
+        deltaTime *= speedModif;
         elapsedTime += Time.deltaTime;
 
         timeLimit -= deltaTime;

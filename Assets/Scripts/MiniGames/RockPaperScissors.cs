@@ -29,9 +29,11 @@ public class RockPaperScissors : MiniGameBase
     GameObject uiParent;
 
     int minigameSuccess;
+    float speedModif;
 
     public override void SetupGame(Canvas gameArea, float speedModifier)
     {
+        speedModif = speedModifier;
         minigameSuccess = 0;
 
         timeLimit = 5;
@@ -111,6 +113,7 @@ public class RockPaperScissors : MiniGameBase
 
     public override int UpdateGame(float deltaTime)
     {
+        deltaTime *= speedModif;
         timeLimit -= deltaTime;
 
         if((timeLimit <= 0 || minigameSuccess == -1) && minigameSuccess != 1) 

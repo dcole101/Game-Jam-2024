@@ -16,7 +16,7 @@ public class MinigameManager : MonoBehaviour
     float timeElapsed = 5;
     float gameEndDelay = 2;
 
-    int minigameCount = 3;
+    int minigameCount = 4;
 
     int health = 5;
 
@@ -124,6 +124,9 @@ public class MinigameManager : MonoBehaviour
                 break;
             case 2:
                 MiniGame = new HoopJump();
+                break;
+            case 3:
+                MiniGame = new DontDrinkPoison();
                 break;
         }
 
