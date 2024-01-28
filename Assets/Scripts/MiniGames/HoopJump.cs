@@ -134,6 +134,7 @@ public class HoopJump : MiniGameBase
                 {
                     if (!isJumping)
                     {
+                        jester.GetComponent<AssetContainer>().switchSprite();
                         isJumping = true;
                         jesterSpeed = jesterMaxSpeed;
                     }
@@ -188,6 +189,7 @@ public class HoopJump : MiniGameBase
                 hoopJumpThrough = true;
             }
             isJumping = false;
+            jester.GetComponent<AssetContainer>().switchSprite();
         }
     }
 
