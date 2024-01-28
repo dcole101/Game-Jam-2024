@@ -11,6 +11,9 @@ public class MinigameManager : MonoBehaviour
     public GameObject rightCurtain;
     public GameObject levelUpText;
 
+    public List<GameObject> hearts;
+    public Sprite emptyHeart;
+
     public Canvas minigameCanvas;
     public MiniGameBase MiniGame;
 
@@ -83,6 +86,7 @@ public class MinigameManager : MonoBehaviour
                 else
                 {
                     health--;
+                    hearts[health].GetComponent<Image>().sprite = emptyHeart;
                 }
 
                 Debug.Log(health);
