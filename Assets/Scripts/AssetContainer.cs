@@ -19,4 +19,9 @@ public class AssetContainer : MonoBehaviour
             GetComponent<Image>().sprite = defaultSprite;
         }
     }
+
+    public void ResetSprite()
+    {
+        GetComponent<Image>().sprite = defaultSprite;
+    }
 }

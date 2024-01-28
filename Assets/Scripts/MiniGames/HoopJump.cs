@@ -65,7 +65,9 @@ public class HoopJump : MiniGameBase
             else if (gameUI.name == "Jester")
             {
                 jester = gameUI;
-                
+
+                jester.GetComponent<AssetContainer>().ResetSprite();
+
                 Vector3 JesterPos = jester.GetComponent<Transform>().position;
                 JesterPos.x += Random.Range(-150, 150);
                 jester.GetComponent<Transform>().position = JesterPos;
