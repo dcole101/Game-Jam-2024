@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/IntroScreen.unity
     guid: 38e07dd56f6ad8e4dafbd7c46e5c676e
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/Scenes/DaniScene.unity
+    guid: 90006233c323c3243b639bee3afa1d69
   - enabled: 1
     path: Assets/Scenes/GameOverScreen.unity
     guid: 3ef796a090b3e304c830138ff24437e2
