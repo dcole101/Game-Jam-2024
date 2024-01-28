@@ -14,6 +14,8 @@ public class MinigameManager_NoAnim : MonoBehaviour
     public List<GameObject> hearts;
     public Sprite emptyHeart;
 
+    public GameObject sfxController;
+
     public Canvas minigameCanvas;
     public MiniGameBase MiniGame;
 
@@ -68,7 +70,7 @@ public class MinigameManager_NoAnim : MonoBehaviour
         //Play Minigame
         if (gameRunning)
         {
-            int gameState = MiniGame.UpdateGame(Time.deltaTime);
+            int gameState = MiniGame.UpdateGame(sfxController, Time.deltaTime);
 
             //Debug.Log(MiniGame.timeLimit/timerTime);
 

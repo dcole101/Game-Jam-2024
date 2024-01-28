@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -34,6 +35,7 @@ public class CatchTheTips : MiniGameBase
 
     public override void SetupGame(Canvas gameArea, float speedModifier)
     {
+
         speedModif = speedModifier;
         minigameSuccess = 0;
 
@@ -122,7 +124,7 @@ public class CatchTheTips : MiniGameBase
         coin3Collected = false;
     }
 
-    public override int UpdateGame(float deltaTime)
+    public override int UpdateGame(GameObject sfxController, float deltaTime)
     {
         deltaTime *= speedModif;
         elapsedTime += Time.deltaTime;
@@ -187,18 +189,31 @@ public class CatchTheTips : MiniGameBase
 
             if((coin1.transform.position.x >= hat.transform.position.x - 70 && coin1.transform.position.x <= hat.transform.position.x + 70) && (coin1.transform.position.y >= hat.transform.position.y - 70 && coin1.transform.position.y <= hat.transform.position.y + 70))
             {
+                if(coin1Collected == false) 
+                {
+                    sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[Random.Range(0, 3)]);
+                }
                 coin1Collected = true;
                 coin1.GetComponent<Image>().color = new Vector4(255, 255, 255, 0);
+
             }
 
             if ((coin2.transform.position.x >= hat.transform.position.x - 70 && coin2.transform.position.x <= hat.transform.position.x + 70) && (coin2.transform.position.y >= hat.transform.position.y - 70 && coin2.transform.position.y <= hat.transform.position.y + 70))
             {
+                if (coin2Collected == false)
+                {
+                    sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[Random.Range(0, 3)]);
+                }
                 coin2Collected = true;
                 coin2.GetComponent<Image>().color = new Vector4(255, 255, 255, 0);
             }
 
             if ((coin3.transform.position.x >= hat.transform.position.x - 70 && coin3.transform.position.x <= hat.transform.position.x + 70) && (coin3.transform.position.y >= hat.transform.position.y - 70 && coin3.transform.position.y <= hat.transform.position.y + 70))
             {
+                if (coin3Collected == false)
+                {
+                    sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[Random.Range(0, 3)]);
+                }
                 coin3Collected = true;
                 coin3.GetComponent<Image>().color = new Vector4(255, 255, 255, 0);
             }

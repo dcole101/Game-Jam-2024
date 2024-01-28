@@ -17,6 +17,8 @@ public class MinigameManager : MonoBehaviour
     public Canvas minigameCanvas;
     public MiniGameBase MiniGame;
 
+    public GameObject sfxController;
+
     public Image jesterTimer;
     public float jesterSpeed = 5000f;
     public float lerpedX = 0;
@@ -71,7 +73,7 @@ public class MinigameManager : MonoBehaviour
         //Play Minigame
         if (gameRunning)
         {
-            int gameState = MiniGame.UpdateGame(Time.deltaTime);
+            int gameState = MiniGame.UpdateGame(sfxController, Time.deltaTime);
 
             //Debug.Log(MiniGame.timeLimit/timerTime);
 

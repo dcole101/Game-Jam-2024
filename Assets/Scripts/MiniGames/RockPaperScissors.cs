@@ -13,7 +13,7 @@ public class RockPaperScissors : MiniGameBase
     float xSpeed;
 
     float elapsedTime;
-
+    
     bool iconClicked;
 
     //Rock, Paper, Scissors Icons that users clicks to select move.
@@ -130,7 +130,7 @@ public class RockPaperScissors : MiniGameBase
         }
     }
 
-    public override int UpdateGame(float deltaTime)
+    public override int UpdateGame(GameObject sfxController, float deltaTime)
     {
         deltaTime *= speedModif;
         timeLimit -= deltaTime;
