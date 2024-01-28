@@ -2,40 +2,36 @@ using UnityEngine;
 
 public class AnimationController : MonoBehaviour
 {
-    public GameObject[] gameObjects; // Array to hold your game objects
+    public GameObject[] objectsToAnimate;
+    private int currentIndex = 0;
+    public float delayBetweenObjects = 30f;
 
-    void Update()
+    private void Start()
     {
-        // Check for key presses
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            ToggleGameObject(0);
-        }
-        else if (Input.GetKeyDown(KeyCode.W))
-        {
-            ToggleGameObject(1);
-        }
-        else if (Input.GetKeyDown(KeyCode.O))
-        {
-            ToggleGameObject(2);
-        }
-        else if (Input.GetKeyDown(KeyCode.P))
-        {
-            ToggleGameObject(3);
-        }
+        // Start the animation loop
+        InvokeRepeating("AnimateObjects", 0f, delayBetweenObjects);
     }
 
-    void ToggleGameObject(int index)
+    private void AnimateObjects()
     {
-        // Ensure the index is within the array bounds
-        if (index >= 0 && index < gameObjects.Length)
+        // Turn off the previous object
+        if (currentIndex > 0)
         {
-            // Toggle the visibility of the selected game object
-            gameObjects[index].SetActive(!gameObjects[index].activeSelf);
+            objectsToAnimate[currentIndex - 1].SetActive(false);
+        }
+
+        // Turn on the current object
+        if (currentIndex < objectsToAnimate.Length)
+        {
+            objectsToAnimate[currentIndex].SetActive(true);
+            Debug.Log("Next Jester Animation Played");
+            currentIndex++;
         }
         else
         {
-            Debug.LogWarning("Invalid index: " + index);
+            // If we've reached the end, restart the animation
+            currentIndex = 0;
+            // Optionally, you can stop the animation by calling CancelInvoke("AnimateObjects");
         }
     }
 }
