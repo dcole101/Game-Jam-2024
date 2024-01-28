@@ -9,6 +9,7 @@ public class MinigameManager : MonoBehaviour
 {
     public GameObject leftCurtain;
     public GameObject rightCurtain;
+    public GameObject levelUpText;
 
     public Canvas minigameCanvas;
     public MiniGameBase MiniGame;
@@ -108,7 +109,6 @@ public class MinigameManager : MonoBehaviour
             if (timeElapsed >= gameEndDelay)
             {
                 isGameEndDelay = false;
-                timeElapsed = 0;
                 isClosingCurtains = true;
             }
         }
@@ -124,6 +124,7 @@ public class MinigameManager : MonoBehaviour
             {
                 isClosingCurtains = false;
                 isSwitchingGame = true;
+                timeElapsed = 0;
             } 
         }
         //Check if game over
@@ -135,6 +136,16 @@ public class MinigameManager : MonoBehaviour
         {
             timeElapsed += Time.deltaTime;
             jesterTimer.gameObject.SetActive(false);
+
+            if (timeElapsed > 0.5)
+            {
+                levelUpText.SetActive(true);
+            }
+            if (timeElapsed > 1.5)
+            {
+                levelUpText.SetActive(false);
+            }
+
             //Level UP effects
             if (timeElapsed > 2)
             {
