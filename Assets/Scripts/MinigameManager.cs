@@ -34,7 +34,7 @@ public class MinigameManager : MonoBehaviour
 
     float timerTime = 0f;
 
-    int minigameCount = 5;
+    int minigameCount = 6;
 
     int health = 5;
 
@@ -57,6 +57,7 @@ public class MinigameManager : MonoBehaviour
 
         gameWon = false;
         SwitchMiniGame();
+        gameRunning = true;
         timerTime = MiniGame.timeLimit;
     }
 
@@ -188,7 +189,7 @@ public class MinigameManager : MonoBehaviour
         {
             MiniGame.ResetGame();
         }
-        gameID = 4;
+        
         switch (gameID)
         {
             case 0:
@@ -204,6 +205,9 @@ public class MinigameManager : MonoBehaviour
                 MiniGame = new DontDrinkPoison();
                 break;
             case 4:
+                MiniGame = new CutTheSteak();
+                break;
+            case 5:
                 MiniGame = new CatchTheTips();
                 break;
         }
