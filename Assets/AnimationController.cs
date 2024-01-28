@@ -4,7 +4,7 @@ public class AnimationController : MonoBehaviour
 {
     public GameObject[] objectsToAnimate;
     private int currentIndex = 0;
-    public float delayBetweenObjects = 30f;
+    public float delayBetweenObjects = 20f;
 
     private void Start()
     {
