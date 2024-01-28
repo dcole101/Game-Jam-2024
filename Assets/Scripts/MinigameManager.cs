@@ -19,6 +19,9 @@ public class MinigameManager : MonoBehaviour
 
     public GameObject sfxController;
 
+    bool curtainOpenSoundPlayed;
+    bool levelUpSoundPlayed;
+
     public Image jesterTimer;
     public float jesterSpeed = 5000f;
     public float lerpedX = 0;
@@ -53,7 +56,9 @@ public class MinigameManager : MonoBehaviour
 
     private void Start()
     {
-        playedCurtainsOpenSound = false; 
+
+        curtainOpenSoundPlayed = false;
+        levelUpSoundPlayed = false;
 
         availableIDs = new List<int>();
 
@@ -73,8 +78,6 @@ public class MinigameManager : MonoBehaviour
 
     void Update()
     {
-            Debug.Log("Test");
-
         //Play Minigame
         if (gameRunning)
         {
@@ -85,8 +88,8 @@ public class MinigameManager : MonoBehaviour
             // Calculate the lerp position based on the elapsed time
 
             lerpedX = Mathf.Lerp(-550, 550, MiniGame.timeLimit / timerTime);
-           
-      
+
+
             // Update the position of the UI Image
             jesterTimer.transform.position = new Vector2(lerpedX, 45);
 
@@ -112,14 +115,14 @@ public class MinigameManager : MonoBehaviour
             }
         }
         //Delay after game
-        else if (timeElapsed < gameEndDelay && isGameEndDelay) {
+        else if (timeElapsed < gameEndDelay && isGameEndDelay)
+        {
             timeElapsed += Time.deltaTime;
 
 
             if (gameWon)
             {
                 //victory effect
-
             }
             else
             {
@@ -128,12 +131,10 @@ public class MinigameManager : MonoBehaviour
 
             if (timeElapsed >= gameEndDelay)
             {
+                sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[6], 0.7f);
+
                 isGameEndDelay = false;
                 isClosingCurtains = true;
-
-                sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[6]);
-                Debug.Log("SOUND2 ");
-
             }
         }
         //Close curtains
@@ -144,12 +145,12 @@ public class MinigameManager : MonoBehaviour
 
             //Debug.Log(leftCurtain.GetComponent<Transform>().position.x + " ; " + rightCurtain.GetComponent<Transform>().position.x);
 
-            if (leftCurtain.GetComponent<Transform>().position.x >= 550 - (leftCurtain.GetComponent<RectTransform>().rect.width * leftCurtain.GetComponent<RectTransform>().localScale.x / 2)  && rightCurtain.GetComponent<Transform>().position.x <= 530 + (rightCurtain.GetComponent<RectTransform>().rect.width * rightCurtain.GetComponent<RectTransform>().localScale.x / 2))
+            if (leftCurtain.GetComponent<Transform>().position.x >= 550 - (leftCurtain.GetComponent<RectTransform>().rect.width * leftCurtain.GetComponent<RectTransform>().localScale.x / 2) && rightCurtain.GetComponent<Transform>().position.x <= 530 + (rightCurtain.GetComponent<RectTransform>().rect.width * rightCurtain.GetComponent<RectTransform>().localScale.x / 2))
             {
                 isClosingCurtains = false;
                 isSwitchingGame = true;
                 timeElapsed = 0;
-            } 
+            }
         }
         //Check if game over
         else if (health <= 0)
@@ -158,11 +159,21 @@ public class MinigameManager : MonoBehaviour
         }
         else if (availableIDs.Count <= 0 && isSwitchingGame)
         {
+
+
+
+
             timeElapsed += Time.deltaTime;
             jesterTimer.gameObject.SetActive(false);
 
             if (timeElapsed > 0.5)
             {
+                if (levelUpSoundPlayed == false)
+                {
+                    sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[10]);
+                    levelUpSoundPlayed = true;
+                }
+
                 levelUpText.SetActive(true);
             }
             if (timeElapsed > 1.5)
@@ -174,6 +185,7 @@ public class MinigameManager : MonoBehaviour
             if (timeElapsed > 2)
             {
                 LevelUp();
+                levelUpSoundPlayed = false;
                 jesterTimer.gameObject.SetActive(true);
             }
         }
@@ -184,7 +196,7 @@ public class MinigameManager : MonoBehaviour
 
             isSwitchingGame = false;
             SwitchMiniGame();
-            jesterTimer.transform.position = new Vector2(400,45);
+            jesterTimer.transform.position = new Vector2(400, 45);
 
             timerTime = MiniGame.timeLimit;
         }
@@ -194,16 +206,16 @@ public class MinigameManager : MonoBehaviour
             leftCurtain.GetComponent<Transform>().position -= new Vector3(curtainSpeed * Time.deltaTime, 0, 0);
             rightCurtain.GetComponent<Transform>().position -= new Vector3(curtainSpeed * Time.deltaTime * -1, 0, 0);
 
-            if(playedCurtainsOpenSound == false)
+            if (curtainOpenSoundPlayed == false)
             {
-                //sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[6]);
-                //playedCurtainsOpenSound = true;
+                sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[6], 0.7f);
+                curtainOpenSoundPlayed = true;
                 Debug.Log("SOUND");
             }
 
             if (leftCurtain.GetComponent<Transform>().position.x <= -20 - (leftCurtain.GetComponent<RectTransform>().rect.width * leftCurtain.GetComponent<RectTransform>().localScale.x / 2) && rightCurtain.GetComponent<Transform>().position.x >= 1100 + (rightCurtain.GetComponent<RectTransform>().rect.width * rightCurtain.GetComponent<RectTransform>().localScale.x / 2))
             {
-                playedCurtainsOpenSound = false;
+                curtainOpenSoundPlayed = false;
                 gameRunning = true;
             }
         }
@@ -218,7 +230,7 @@ public class MinigameManager : MonoBehaviour
         {
             MiniGame.ResetGame();
         }
-        
+
         switch (gameID)
         {
             case 0:
@@ -269,6 +281,8 @@ public class MinigameManager : MonoBehaviour
 
         Debug.Log("LEVEL UP");
         speedModifier += 0.2f;
+
+
 
     }
 }
