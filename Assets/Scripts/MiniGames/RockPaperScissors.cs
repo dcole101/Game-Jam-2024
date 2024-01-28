@@ -9,6 +9,13 @@ public class RockPaperScissors : MiniGameBase
 {
     List<RaycastResult> raycastResult = null;
 
+    float rotateSpeed;
+    float xSpeed;
+
+    float elapsedTime;
+
+    bool iconClicked;
+
     //Rock, Paper, Scissors Icons that users clicks to select move.
     GameObject rockIcon;
     GameObject paperIcon;
@@ -34,6 +41,10 @@ public class RockPaperScissors : MiniGameBase
     public override void SetupGame(Canvas gameArea, float speedModifier)
     {
         //GameObject.Find("GameManager").GetComponent<MinigameManager>().jesterTimer.transform.position = new Vector2(400, 45);
+        iconClicked = false;
+        elapsedTime = 0;
+        rotateSpeed = 200f;
+        xSpeed = 1600f;
 
         speedModif = speedModifier;
         minigameSuccess = 0;
@@ -63,7 +74,7 @@ public class RockPaperScissors : MiniGameBase
             {
                 playerHand = gameUI;
             }
-            else if(gameUI.name == "opponentHand")
+            else if (gameUI.name == "opponentHand")
             {
                 opponentHand = gameUI;
             }
@@ -91,23 +102,29 @@ public class RockPaperScissors : MiniGameBase
             {
                 opponentScissors = gameUI;
             }
-            else if( gameUI.name == "RockPaperScissors")
+            else if (gameUI.name == "RockPaperScissors")
             {
                 uiParent = gameUI;
                 uiParent.GetComponent<Transform>().position = new Vector2(540, 960);
             }
         }
 
+        playerHand.transform.position = new Vector3(-750 + 540, -475 + 960, 0);
+        opponentHand.transform.position = new Vector3(750 + 540, -475 + 960, 0);
+        playerHand.transform.rotation = Quaternion.Euler(0, 0, 45);
+        opponentHand.transform.rotation = Quaternion.Euler(0, 0, 315);
+        playerHand.SetActive(false);
+
         randomSign = Random.Range(0, 3);
-        if(randomSign == 0)
+        if (randomSign == 0)
         {
             opponentHand.GetComponent<Image>().sprite = opponentRock.GetComponent<Image>().sprite;
         }
-        else if(randomSign == 1)
+        else if (randomSign == 1)
         {
             opponentHand.GetComponent<Image>().sprite = opponentPaper.GetComponent<Image>().sprite;
         }
-        else if(randomSign == 2)
+        else if (randomSign == 2)
         {
             opponentHand.GetComponent<Image>().sprite = opponentScissors.GetComponent<Image>().sprite;
         }
@@ -117,17 +134,48 @@ public class RockPaperScissors : MiniGameBase
     {
         deltaTime *= speedModif;// 
         timeLimit -= deltaTime;
+        elapsedTime += Time.deltaTime;
 
-        if((timeLimit <= 0 || minigameSuccess == -1) && minigameSuccess != 1) 
+        if ((timeLimit <= 0 || minigameSuccess == -1) && minigameSuccess != 1)
         {
             Debug.Log("YOU LOST!");
-            return -1;
+            if (elapsedTime > 0.5f)
+            {
+                return -1;
+            }
         }
 
-        if(minigameSuccess == 1) 
+        if (minigameSuccess == 1)
         {
             Debug.Log("YOU WON!");
-            return 1;
+            if (elapsedTime > 0.5f)
+            {
+                return 1;
+            }
+        }
+
+        if (opponentHand.transform.rotation.eulerAngles.z >= 45)
+        {
+            opponentHand.GetComponent<RectTransform>().Rotate(Vector3.forward * rotateSpeed * deltaTime);
+        }
+
+        if(opponentHand.GetComponent<RectTransform>().position.x >= 850)
+        {
+            opponentHand.GetComponent<RectTransform>().position = new Vector2(opponentHand.transform.position.x + (-xSpeed * deltaTime), opponentHand.transform.position.y);
+        }
+
+        if(iconClicked == true)
+        {
+            if (playerHand.GetComponent<RectTransform>().position.x <= 250)
+            {
+                playerHand.GetComponent<RectTransform>().position = new Vector2(playerHand.transform.position.x + (xSpeed * deltaTime), playerHand.transform.position.y);
+            }
+
+            if (playerHand.transform.rotation.z > 0)
+            {
+                Debug.Log(playerHand.transform.rotation.z);
+                playerHand.GetComponent<RectTransform>().Rotate(Vector3.forward * -rotateSpeed * deltaTime);
+            }
         }
 
         raycastResult = gameController.UpdateControls(deltaTime);
@@ -140,41 +188,70 @@ public class RockPaperScissors : MiniGameBase
                 {
                     break;
                 }
-
                 if (result.gameObject == rockIcon) //Player Selects Rock
                 {
+                    playerHand.SetActive(true);
+                    iconClicked = true;
                     playerHand.GetComponent<Image>().sprite = playerRock.GetComponent<Image>().sprite;
                     if (opponentHand.GetComponent<Image>().sprite == opponentRock.GetComponent<Image>().sprite || opponentHand.GetComponent<Image>().sprite == opponentPaper.GetComponent<Image>().sprite)
                     {
-                        minigameSuccess = -1;
+                        if (iconClicked == true)
+                        {
+                            elapsedTime = 0;
+                            minigameSuccess = -1;
+                        }
                     }
-                    else if(opponentHand.GetComponent<Image>().color == opponentScissors.GetComponent<Image>().color) 
+                    else if(opponentHand.GetComponent<Image>().sprite == opponentScissors.GetComponent<Image>().sprite) 
                     {
-                        minigameSuccess = 1;
+                        if (iconClicked == true)
+                        {
+                            elapsedTime = 0;
+                            minigameSuccess = 1;
+                        }
                     }
                 }
                 else if(result.gameObject == paperIcon) //Player Selects Paper
                 {
+                    playerHand.SetActive(true);
+                    iconClicked = true;
                     playerHand.GetComponent<Image>().sprite = playerPaper.GetComponent<Image>().sprite;
                     if (opponentHand.GetComponent<Image>().sprite == opponentPaper.GetComponent<Image>().sprite || opponentHand.GetComponent<Image>().sprite == opponentScissors.GetComponent<Image>().sprite)
                     {
-                        minigameSuccess = -1;
+                        if (iconClicked == true)
+                        {
+                            elapsedTime = 0;
+                            minigameSuccess = -1;
+                        }
                     }
                     else if (opponentHand.GetComponent<Image>().sprite == opponentRock.GetComponent<Image>().sprite)
                     {
-                        minigameSuccess = 1;
+                        if (iconClicked == true)
+                        {
+                            elapsedTime = 0;
+                            minigameSuccess = 1;
+                        }
                     }
                 }
                 else if(result.gameObject == scissorsIcon) //Player Selects Scissors
                 {
+                    playerHand.SetActive(true);
+                    iconClicked = true;
                     playerHand.GetComponent<Image>().sprite = playerScissors.GetComponent<Image>().sprite;
                     if (opponentHand.GetComponent<Image>().sprite == opponentScissors.GetComponent<Image>().sprite || opponentHand.GetComponent<Image>().sprite == opponentRock.GetComponent<Image>().sprite)
                     {
-                        minigameSuccess = -1;
+                        if (iconClicked == true)
+                        {
+                            elapsedTime = 0;
+                            minigameSuccess = -1;
+                        }
                     }
                     else if (opponentHand.GetComponent<Image>().sprite == opponentPaper.GetComponent<Image>().sprite)
                     {
-                        minigameSuccess = 1;
+                        if (iconClicked == true)
+                        {
+                            elapsedTime = 0;
+                            minigameSuccess = 1;
+                        }
                     }
                 }
             }

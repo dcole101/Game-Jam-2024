@@ -56,7 +56,7 @@ public class MinigameManager : MonoBehaviour
         {
             int gameState = MiniGame.UpdateGame(Time.deltaTime);
 
-            Debug.Log(MiniGame.timeLimit/timerTime);
+            //Debug.Log(MiniGame.timeLimit/timerTime);
 
             // Calculate the lerp position based on the elapsed time
 
@@ -137,7 +137,7 @@ public class MinigameManager : MonoBehaviour
         {
             MiniGame.ResetGame();
         }
-
+        gameID = 1;
         switch (gameID)
         {
             case 0:
