@@ -2063,6 +2063,8 @@ MonoBehaviour:
   jesterSpeed: 5000
   lerpedX: 0
   camAnim: {fileID: 2115746926}
+  happy: {fileID: 571748852}
+  bored: {fileID: 1467660394}
 --- !u!1 &1245227163 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d6af69a460398324e90eab0fd09e26fc, type: 3}
@@ -3659,6 +3661,7 @@ GameObject:
   - component: {fileID: 2115746923}
   - component: {fileID: 2115746925}
   - component: {fileID: 2115746926}
+  - component: {fileID: 2115746927}
   m_Layer: 0
   m_Name: Jester_Cam
   m_TagString: Untagged
@@ -3767,6 +3770,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraClipC: {fileID: 7400000, guid: 2af0a18383141c24aa8624ab81f1b1ae, type: 2}
   cameraClipV: {fileID: 7400000, guid: 25f7c0737eb59d44a9e4eac5b95e5d02, type: 2}
+  cameraAnimator: {fileID: 2115746925}
+--- !u!81 &2115746927
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115746921}
+  m_Enabled: 1
 --- !u!1 &2126329357
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,11 +5,11 @@ public class CameraAnimator : MonoBehaviour
     public AnimationClip cameraClipC;
     public AnimationClip cameraClipV;
 
-    private Animator cameraAnimator;
+    public Animator cameraAnimator;
 
     void Start()
     {
-        cameraAnimator = GetComponent<Animator>();
+        //cameraAnimator = GetComponent<Animator>();
 
         // Disable the Animator component on start
         cameraAnimator.enabled = false;
@@ -34,6 +34,10 @@ public class CameraAnimator : MonoBehaviour
     public void JesterCamAnim()
     {
         Debug.Log("UPdate Cam");
+        if(cameraAnimator == null)
+        {
+            Debug.Log("Camera V not found");
+        }
         EnableAnimatorAndPlayAnimation(cameraClipV);
     }
 

@@ -54,6 +54,12 @@ public class MinigameManager : MonoBehaviour
 
     public CameraAnimator camAnim;
 
+    private IEnumerator coroutine;
+
+    //king animations
+    public GameObject happy;
+    public GameObject bored;
+
     private void Start()
     {
 
@@ -61,8 +67,9 @@ public class MinigameManager : MonoBehaviour
         levelUpSoundPlayed = false;
 
         availableIDs = new List<int>();
+        coroutine = KingHappy();
 
-        speedModifier = 1;
+        speedModifier = 1.2f;
         for (int i = 0; i < minigameCount; i++)
         {
             availableIDs.Add(i);
@@ -101,6 +108,7 @@ public class MinigameManager : MonoBehaviour
                 }
                 else
                 {
+                    gameWon = false;
                     health--;
                     hearts[health].GetComponent<Image>().sprite = emptyHeart;
                 }
@@ -123,6 +131,10 @@ public class MinigameManager : MonoBehaviour
             if (gameWon)
             {
                 //victory effect
+                //StartCoroutine(coroutine);
+
+                happy.SetActive(true);
+                bored.SetActive(false);
             }
             else
             {
@@ -132,7 +144,6 @@ public class MinigameManager : MonoBehaviour
             if (timeElapsed >= gameEndDelay)
             {
                 sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[6], 0.7f);
-
                 isGameEndDelay = false;
                 isClosingCurtains = true;
             }
@@ -217,6 +228,9 @@ public class MinigameManager : MonoBehaviour
             {
                 curtainOpenSoundPlayed = false;
                 gameRunning = true;
+
+                happy.SetActive(false);
+                bored.SetActive(true);
             }
         }
     }
@@ -285,4 +299,22 @@ public class MinigameManager : MonoBehaviour
 
 
     }
+
+    IEnumerator KingHappy()
+    {
+        // Set the initial state
+        happy.SetActive(true);
+        bored.SetActive(false);
+
+        Debug.Log("King Happy!");
+
+        // Wait for 6 seconds
+        yield return new WaitForSeconds(2);
+
+        // Reverse the state after 6 seconds
+        happy.SetActive(false);
+        bored.SetActive(true);
+    }
 }
+
+

@@ -230,7 +230,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Whack the Mole!
+  m_text: Whack the Fool!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2ed623ef2e9c1414eaac2c21c888867c, type: 2}
   m_sharedMaterial: {fileID: -7364975612335126592, guid: 2ed623ef2e9c1414eaac2c21c888867c, type: 2}
