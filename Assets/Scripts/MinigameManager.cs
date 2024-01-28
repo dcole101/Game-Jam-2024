@@ -136,7 +136,7 @@ public class MinigameManager : MonoBehaviour
         {
             SceneManager.LoadScene("GameOverScreen");
         }
-        else if (availableIDs.Count <= 0)
+        else if (availableIDs.Count <= 0 && isSwitchingGame)
         {
             timeElapsed += Time.deltaTime;
             jesterTimer.gameObject.SetActive(false);
@@ -188,6 +188,8 @@ public class MinigameManager : MonoBehaviour
         {
             MiniGame.ResetGame();
         }
+
+        Debug.Log("Minigame left: " + availableIDs.Count);
 
         switch (gameID)
         {
