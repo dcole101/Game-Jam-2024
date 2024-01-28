@@ -158,6 +158,8 @@ public class CatchTheTips : MiniGameBase
                 else if(coin1.transform.position.y <= 0 && coin1Collected == false)
                 {
                     droppedCoin1 = true;
+                    sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[8]);
+
                     return -1;
                 }
             }
@@ -170,6 +172,8 @@ public class CatchTheTips : MiniGameBase
                 else if(coin2.transform.position.y <= 0 && coin2Collected == false)
                 {
                     droppedCoin2 = true;
+                    sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[8]);
+
                     return -1;
                 }
             }
@@ -183,6 +187,8 @@ public class CatchTheTips : MiniGameBase
                 else if(coin3.transform.position.y <= 0 && coin3Collected == false)
                 {
                     droppedCoin3 = true;
+                    sfxController.GetComponent<AudioSource>().PlayOneShot(sfxController.GetComponent<AudioController>().sfx[8]);
+
                     return -1;
                 }
             }
