@@ -33,6 +33,8 @@ public class RockPaperScissors : MiniGameBase
 
     public override void SetupGame(Canvas gameArea, float speedModifier)
     {
+        //GameObject.Find("GameManager").GetComponent<MinigameManager>().jesterTimer.transform.position = new Vector2(400, 45);
+
         speedModif = speedModifier;
         minigameSuccess = 0;
 

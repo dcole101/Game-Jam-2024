@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MinigameManager : MonoBehaviour
 {
     public Canvas minigameCanvas;
     public MiniGameBase MiniGame;
+
+    public Image jesterTimer;
+    public float jesterSpeed = 5000f;
+    public float lerpedX = 0;
+
+    bool lerpStarted = false; 
 
     bool gameRunning;
     bool gameWon;
@@ -15,6 +22,8 @@ public class MinigameManager : MonoBehaviour
 
     float timeElapsed = 5;
     float gameEndDelay = 2;
+
+    float timerTime = 0f;
 
     int minigameCount = 4;
 
@@ -37,6 +46,7 @@ public class MinigameManager : MonoBehaviour
 
         gameWon = false;
         SwitchMiniGame();
+        timerTime = MiniGame.timeLimit;
     }
 
     void Update()
@@ -45,6 +55,16 @@ public class MinigameManager : MonoBehaviour
         if (gameRunning)
         {
             int gameState = MiniGame.UpdateGame(Time.deltaTime);
+
+            Debug.Log(MiniGame.timeLimit/timerTime);
+
+            // Calculate the lerp position based on the elapsed time
+
+            lerpedX = Mathf.Lerp(-550, 550, MiniGame.timeLimit / timerTime);
+           
+      
+            // Update the position of the UI Image
+            jesterTimer.transform.position = new Vector2(lerpedX, 45);
 
             if (gameState != 0)
             {
@@ -91,16 +111,20 @@ public class MinigameManager : MonoBehaviour
         else if (availableIDs.Count <= 0)
         {
             timeElapsed += Time.deltaTime;
-
+            jesterTimer.gameObject.SetActive(false);
             //Level UP effects
             if (timeElapsed > 2)
             {
                 LevelUp();
+                jesterTimer.gameObject.SetActive(true);
             }
         }
         else
         {
             SwitchMiniGame();
+            jesterTimer.transform.position = new Vector2(400,45);
+
+            timerTime = MiniGame.timeLimit;
         }
     }
 
