@@ -11,6 +11,7 @@ public class CutTheSteak : MiniGameBase
     float m_speedModifier;
     GameObject steakUncut;
     GameObject steakCut;
+    GameObject steakUncutImg;
 
     GameObject parentUi;
 
@@ -22,7 +23,7 @@ public class CutTheSteak : MiniGameBase
     {
         m_speedModifier = speedModifier;
 
-        timeLimit = 4;
+        timeLimit = 5;
 
         steakCuts = 10;
         steakOrigWidth = 420;
@@ -44,6 +45,10 @@ public class CutTheSteak : MiniGameBase
             {
                 steakCut = gameUI;
             }
+            else if (gameUI.name == "SteakUncutImg")
+            {
+                steakUncutImg = gameUI;
+            }
             else if (gameUI.name == "CutTheSteak")
             {
                 parentUi = gameUI;
@@ -52,6 +57,9 @@ public class CutTheSteak : MiniGameBase
         }
         steakUncut.GetComponent<RectTransform>().sizeDelta = new Vector2(steakOrigWidth, steakUncut.GetComponent<RectTransform>().rect.height);
         steakUncut.GetComponent<Transform>().position = new Vector2(32 + 540, -572 + 960);
+
+        steakCut.GetComponent<SteakAssets>().ResetSprite();
+        steakUncutImg.GetComponent<SteakAssets>().ResetSprite();
     }
 
     public override int UpdateGame(float deltaTime)
@@ -97,6 +105,9 @@ public class CutTheSteak : MiniGameBase
 
         steakUncut.GetComponent<RectTransform>().sizeDelta -= new Vector2 (steakOrigWidth / 10, 0);
         steakUncut.GetComponent<Transform>().position += new Vector3(steakOrigWidth / 20, 0, 0);
+
+        steakCut.GetComponent<SteakAssets>().UpdateSprite();
+        steakUncutImg.GetComponent<SteakAssets>().UpdateSprite();
 
         if (steakCuts <= 0)
         {
