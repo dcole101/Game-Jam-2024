@@ -24,7 +24,7 @@ public class MinigameManager : MonoBehaviour
 
     public Image jesterTimer;
     public float jesterSpeed = 5000f;
-    public float lerpedX = 0;
+    public float lerpedX = 240;
 
     bool lerpStarted = false; 
 
@@ -93,11 +93,11 @@ public class MinigameManager : MonoBehaviour
 
             // Calculate the lerp position based on the elapsed time
 
-            lerpedX = Mathf.Lerp(-550, 550, MiniGame.timeLimit / timerTime);
+            lerpedX = Mathf.Lerp(-240, 240, MiniGame.timeLimit / timerTime);
 
 
             // Update the position of the UI Image
-            jesterTimer.transform.position = new Vector2(lerpedX, 45);
+            jesterTimer.transform.position = new Vector2(lerpedX, 35);
 
             if (gameState != 0)
             {
@@ -210,7 +210,7 @@ public class MinigameManager : MonoBehaviour
 
             isSwitchingGame = false;
             SwitchMiniGame();
-            jesterTimer.transform.position = new Vector2(400, 45);
+            jesterTimer.transform.position = new Vector2(240, 45);
 
             timerTime = MiniGame.timeLimit;
         }

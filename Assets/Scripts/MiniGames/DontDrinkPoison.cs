@@ -101,7 +101,7 @@ public class DontDrinkPoison : MiniGameBase
             else if (gameUI.name == "DontDrinkPoison")
             {
                 uiParent = gameUI;
-                uiParent.GetComponent<Transform>().position = new Vector2(540, 960);
+                uiParent.GetComponent<Transform>().position = new Vector2(270, 480);
             }
         }
 

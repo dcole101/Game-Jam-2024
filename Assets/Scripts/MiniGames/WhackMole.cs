@@ -59,7 +59,7 @@ public class WhackMole : MiniGameBase
             else if (gameUI.name == "WhackMole")
             {
                 uiParent = gameUI;
-                uiParent.GetComponent<Transform>().position = new Vector2(540,960);
+                uiParent.GetComponent<Transform>().position = new Vector2(270, 480);
             }
         }
 

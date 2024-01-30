@@ -60,7 +60,7 @@ public class HoopJump : MiniGameBase
             if (gameUI.name == "HoopJump")
             {
                 uiParent = gameUI;
-                uiParent.GetComponent<Transform>().position = new Vector2(540, 960);
+                uiParent.GetComponent<Transform>().position = new Vector2(270, 480);
             }
             else if (gameUI.name == "Jester")
             {

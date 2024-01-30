@@ -105,7 +105,7 @@ public class RockPaperScissors : MiniGameBase
             else if (gameUI.name == "RockPaperScissors")
             {
                 uiParent = gameUI;
-                uiParent.GetComponent<Transform>().position = new Vector2(540, 960);
+                uiParent.GetComponent<Transform>().position = new Vector2(270, 480);
             }
         }
 
