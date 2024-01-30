@@ -52,7 +52,7 @@ public class CutTheSteak : MiniGameBase
             else if (gameUI.name == "CutTheSteak")
             {
                 parentUi = gameUI;
-                parentUi.GetComponent<Transform>().position = new Vector2(540, 960);
+                parentUi.GetComponent<Transform>().position = new Vector2(270, 480);
             }
         }
         steakUncut.GetComponent<RectTransform>().sizeDelta = new Vector2(steakOrigWidth, steakUncut.GetComponent<RectTransform>().rect.height);
