@@ -65,7 +65,7 @@ public class CatchTheTips : MiniGameBase
             else if (gameUI.name == "CatchTheTips")
             {
                 uiParent = gameUI;
-                uiParent.GetComponent<Transform>().position = new Vector2(540, 960);
+                uiParent.GetComponent<Transform>().position = new Vector2(540,960);
             }
         }
         int randomOrder = Random.Range(0, 6);

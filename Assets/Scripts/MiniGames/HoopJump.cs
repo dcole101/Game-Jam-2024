@@ -61,6 +61,7 @@ public class HoopJump : MiniGameBase
             {
                 uiParent = gameUI;
                 uiParent.GetComponent<Transform>().position = new Vector2(540, 960);
+
             }
             else if (gameUI.name == "Jester")
             {

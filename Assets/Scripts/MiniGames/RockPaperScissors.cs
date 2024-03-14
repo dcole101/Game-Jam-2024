@@ -106,6 +106,7 @@ public class RockPaperScissors : MiniGameBase
             {
                 uiParent = gameUI;
                 uiParent.GetComponent<Transform>().position = new Vector2(540, 960);
+
             }
         }
 
